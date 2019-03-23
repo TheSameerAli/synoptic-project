@@ -1,0 +1,18 @@
+
+/* File explorer CSS */
+.sortby-icons span {
+  padding: 5px;
+  border-radius: 50px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.sortby-icons span.selected {
+  background-color: #cccccc79;
+  box-shadow: 1px 1px 1px #8f8f8f5b;
+}
+
+.sortby-icons span:hover:not(.selected) {
+  background-color: #cccccc79;
+  box-shadow: 1px 1px 1px #8f8f8f5b;
+  cursor: pointer;
+}

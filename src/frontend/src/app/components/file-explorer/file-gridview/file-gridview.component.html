@@ -1,0 +1,19 @@
+<div class="files-gridview">
+  <div class="row">
+    <div *ngFor="let file of files" class="col-md-3">
+        <div (click)="selectFile(file.id)" class="card" style="width: 18rem;">
+          <div class="file-icon-container">
+            <div class="file-icon text-center">
+                <i class="fas fa-file-word"></i>
+            </div>
+          </div>
+            <div class="card-body file-info" [class.clicked]="file.id === selectedFileId">
+              <i class="fas fa-file-word"></i>
+              <span class="ml-3">
+                {{file.name}}
+              </span>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>

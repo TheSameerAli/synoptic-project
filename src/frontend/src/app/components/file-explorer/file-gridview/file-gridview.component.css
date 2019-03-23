@@ -1,0 +1,21 @@
+.file-icon {
+  color: blue;
+  font-size: 4rem;
+}
+.file-icon-container {
+  padding: 2rem;
+}
+
+.file-info {
+  background-color:rgba(201, 201, 201, 0.226);
+  padding: 15px;
+}
+.file-info span {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.clicked {
+  background-color: rgba(60, 163, 163, 0.527);
+  color: #034646 !important;
+}

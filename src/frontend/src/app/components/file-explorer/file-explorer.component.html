@@ -1,0 +1,22 @@
+<div class="file-explorer">
+  <div class="options-bar">
+    <div class="row">
+      <div class="col-md-3 offset-10 sortby-icons">
+        <span
+        (click)="changeView(viewOptions.List)"
+        class="ml-5"
+        [class.selected]="selectedView == viewOptions.List"><i class="fas fa-list"></i></span>
+        <span (click)="changeView(viewOptions.Grid)" class="ml-3"
+        [class.selected]="selectedView == viewOptions.Grid"><i class="fas fa-th"></i></span>
+      </div>
+    </div>
+    <hr>
+  </div>
+  <ng-container *ngIf="selectedView === viewOptions.List">
+      <app-file-listview [files]="files"></app-file-listview>
+  </ng-container>
+  <ng-container *ngIf="selectedView === viewOptions.Grid">
+    <app-file-gridview [files]="files"></app-file-gridview>
+  </ng-container>
+
+</div>
