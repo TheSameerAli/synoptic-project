@@ -21,6 +21,8 @@ import { CategoryPageComponent } from './pages/category/category-page/category-p
 import { PlaylistPageComponent } from './pages/playlist/playlist-page/playlist-page.component';
 import { AddCategoryModalComponent } from './partials/modals/categories/add-category-modal/add-category-modal.component';
 import { EditCategoryModalComponent } from './partials/modals/categories/edit-category-modal/edit-category-modal.component';
+import { AddPlaylistModalComponent } from './partials/modals/playlists/add-playlist-modal/add-playlist-modal.component';
+import { EditPlaylistModalComponent } from './partials/modals/playlists/edit-playlist-modal/edit-playlist-modal.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { EditCategoryModalComponent } from './partials/modals/categories/edit-ca
     CategoryPageComponent,
     PlaylistPageComponent,
     AddCategoryModalComponent,
-    EditCategoryModalComponent
+    EditCategoryModalComponent,
+    AddPlaylistModalComponent,
+    EditPlaylistModalComponent
   ],
   imports: [
     BrowserModule,
