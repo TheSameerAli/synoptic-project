@@ -1,8 +1,15 @@
 const { app, BrowserWindow } = require('electron')
 
+const path = require("path");
+const url = require("url");
+const glob = require('glob')
+const fs = require('fs');
+require('./electron/processes/file-operations');
+
 let win;
 
 function createWindow () {
+
   // Create the browser window.
   win = new BrowserWindow({
     width: 600, 
@@ -14,7 +21,7 @@ function createWindow () {
   win.maximize()
 
 
-//   win.loadURL(`file://${__dirname}/dist/frontend/index.html`) // Use for production build
+  // win.loadURL(`file://${__dirname}/dist/frontend/index.html`) // Use for production build
   win.loadURL('http://localhost:4200');
 
   //// uncomment below to open the DevTools.

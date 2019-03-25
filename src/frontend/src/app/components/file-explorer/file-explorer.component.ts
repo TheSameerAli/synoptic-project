@@ -31,7 +31,7 @@ export class FileExplorerComponent implements OnInit {
     }
   ];
   public viewOptions = FileViewOptions;
-  public selectedView: FileViewOptions = FileViewOptions.Grid;
+  public selectedView: FileViewOptions = FileViewOptions.List;
 
   constructor() { }
 

@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { FormsModule } from '@angular/forms';
+
 
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './pages/home/home-page/home-page.component';
@@ -12,6 +15,8 @@ import { TopnavComponent } from './partials/nav/topnav/topnav.component';
 import { FileExplorerComponent } from './components/file-explorer/file-explorer.component';
 import { FileListviewComponent } from './components/file-explorer/file-listview/file-listview.component';
 import { FileGridviewComponent } from './components/file-explorer/file-gridview/file-gridview.component';
+import { FileUploadModalComponent } from './partials/modals/file-upload-modal/file-upload-modal.component';
+import { FolderUploadModalComponent } from './partials/modals/folder-upload-modal/folder-upload-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,9 @@ import { FileGridviewComponent } from './components/file-explorer/file-gridview/
     TopnavComponent,
     FileExplorerComponent,
     FileListviewComponent,
-    FileGridviewComponent
+    FileGridviewComponent,
+    FileUploadModalComponent,
+    FolderUploadModalComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +37,8 @@ import { FileGridviewComponent } from './components/file-explorer/file-gridview/
     ContextMenuModule.forRoot({
       useBootstrap4: true,
     }),
+    NgMultiSelectDropDownModule.forRoot(),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

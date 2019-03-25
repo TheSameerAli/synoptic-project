@@ -25,7 +25,10 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@types/electron": "^1.6.10",
     "core-js": "^2.5.4",
+    "jquery": "^3.3.1",
+    "ng-multiselect-dropdown": "^0.2.3",
     "ngx-contextmenu": "^5.1.1",
     "rxjs": "6.0.0",
     "zone.js": "^0.8.26"

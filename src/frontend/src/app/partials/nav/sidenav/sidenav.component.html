@@ -1,10 +1,16 @@
 <div class="left-sidebar">
 
-      <div class="new-button m-2 mb-4">
-        <button class="btn btn-custom">
+      <div class="new-button m-2 mb-4 dropdown">
+        <button id="newDropdownMenu" data-toggle="dropdown" class="btn btn-custom">
           <span><i class="fas fa-plus-square"></i> New </span>
         </button>
+
+        <div class="dropdown-menu new-dropdown" aria-labelledby="newDropdownMenu">
+            <a data-toggle="modal" data-target="#file-upload-modal" class="dropdown-item" href="#"><i class="fas fa-file mr-2"></i> File Upload</a>
+            <a data-toggle="modal" data-target="#folder-upload-modal" class="dropdown-item" href="#"><i class="fas fa-folder mr-2"></i> Folder Upload</a>
+          </div>
       </div>
+
 
       <ul class="menu-items">
         <li class="active"><i class="fas fa-file-alt pr-3"></i>Files</li>
@@ -12,3 +18,7 @@
         <li><i class="fas fa-tags pr-3"></i>Categories</li>
       </ul>
 </div>
+
+<!-- Modals -->
+<app-file-upload-modal></app-file-upload-modal>
+<app-folder-upload-modal></app-folder-upload-modal>
