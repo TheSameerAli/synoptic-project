@@ -1,0 +1,12 @@
+.toolbar-btn {
+    padding: 5px;
+    border-radius: 50px;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+  
+  .toolbar-btn:hover:not(.disabled) {
+    background-color: #cccccc79;
+    box-shadow: 1px 1px 1px #8f8f8f5b;
+    cursor: pointer;
+  }

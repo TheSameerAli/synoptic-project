@@ -1,15 +1,15 @@
 <div class="file-explorer">
   <div class="options-bar">
-    <div class="row">
-      <div class="col-md-3 offset-10 sortby-icons">
-        <span
-        (click)="changeView(viewOptions.List)"
-        class="ml-5"
-        [class.selected]="selectedView == viewOptions.List"><i class="fas fa-list"></i></span>
-        <span (click)="changeView(viewOptions.Grid)" class="ml-3"
-        [class.selected]="selectedView == viewOptions.Grid"><i class="fas fa-th"></i></span>
-      </div>
-    </div>
+      <div class="new-button m-1 mb-1 dropdown">
+          <button id="newDropdownMenu" data-toggle="dropdown" class="btn btn-custom">
+            <span><i class="fas fa-plus-square mr-2"></i> New </span>
+          </button>
+  
+          <div class="dropdown-menu new-dropdown" aria-labelledby="newDropdownMenu">
+              <a data-toggle="modal" data-target="#file-upload-modal" class="dropdown-item" href="#"><i class="fas fa-file mr-2"></i> File Upload</a>
+              <a data-toggle="modal" data-target="#folder-upload-modal" class="dropdown-item" href="#"><i class="fas fa-folder mr-2"></i> Folder Upload</a>
+            </div>
+        </div>
     <hr>
   </div>
   <ng-container *ngIf="selectedView === viewOptions.List">
@@ -20,3 +20,7 @@
   </ng-container>
 
 </div>
+
+<!-- Modals -->
+<app-file-upload-modal (update)="updateFileList()"></app-file-upload-modal>
+<app-folder-upload-modal></app-folder-upload-modal>

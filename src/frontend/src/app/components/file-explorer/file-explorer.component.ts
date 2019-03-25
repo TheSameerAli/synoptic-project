@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MediaFile } from '../../models/media-file';
+import { MediaFileService } from '../../services/media-file/media-file.service';
 
 @Component({
   selector: 'app-file-explorer',
@@ -7,39 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class FileExplorerComponent implements OnInit {
-  public files = [
-    {
-      'id': 1,
-      'name' : 'Test file.docx',
-      'date_modified' : '20 Jan 2019 16:49',
-      'file_size': '1.26Mb',
-      'icon': '<i class="fas fa-file-word"></i>'
-    },
-    {
-      'id': 2,
-      'name' : 'Test file.docx',
-      'date_modified' : '20 Jan 2019 12:30',
-      'file_size': '1.26Mb',
-      'icon': '<i class="fas fa-file-word"></i>'
-    },
-    {
-      'id': 3,
-      'name' : 'Test file.docx',
-      'date_modified' : '20 Jan 2019 16:13',
-      'file_size': '1.26Mb',
-      'icon': '<i class="fas fa-file-word"></i>'
-    }
-  ];
+  public files: MediaFile[];
   public viewOptions = FileViewOptions;
   public selectedView: FileViewOptions = FileViewOptions.List;
 
-  constructor() { }
+  constructor(private _mediaFileService: MediaFileService) { }
 
   ngOnInit() {
+    this.updateFileList();
   }
 
   changeView(viewOption: FileViewOptions) {
     this.selectedView = viewOption;
+  }
+
+  updateFileList() {
+    this.files = this._mediaFileService.getAllMediaFiles();
   }
 }
 export enum FileViewOptions {

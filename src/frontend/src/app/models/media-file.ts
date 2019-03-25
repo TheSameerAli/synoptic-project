@@ -10,4 +10,11 @@ export class MediaFile {
     categories?: Category[];
     playlists?: Playlist[];
     image: Image;
+
+    constructor(path: string) {
+        const pathArray = path.split('\\');
+        this.name = pathArray[pathArray.length - 1].split('.')[0];
+        this.type = pathArray[pathArray.length - 1].split('.')[1];
+        this.path = path;
+    }
 }

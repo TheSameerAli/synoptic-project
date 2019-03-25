@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { IpcService } from '../../../services/ipc.service';
 import { IpcMessageEvent } from 'electron';
+import { forEach } from '@angular/router/src/utils/collection';
+import { MediaFileService } from '../../../services/media-file/media-file.service';
+import { MediaFile } from '../../../models/media-file';
 
 @Component({
   selector: 'app-file-upload-modal',
@@ -25,25 +28,32 @@ export class FileUploadModalComponent implements OnInit {
     itemsShowLimit: 10,
     allowSearchFilter: true
   };
-  constructor(private _ipcService: IpcService) {
+  @ViewChild('close') closeButton: ElementRef;
+  @Output() update: EventEmitter<any> = new EventEmitter<any>();
+  constructor(private _ipcService: IpcService, private _mediaFileService: MediaFileService) {
   }
 
   ngOnInit() {
     this._ipcService.on('files', (event, files) => {
-      console.log(files);
+      this.saveFiles(files);
     });
   }
 
-  onItemSelect(item: any) {
-    console.log(item);
-  }
-  onSelectAll(items: any) {
-    console.log(items);
+  saveFiles(files) {
+    files.forEach(file => {
+      this._mediaFileService.add(new MediaFile(file));
+    });
+    this.update.emit();
+    this.closeButton.nativeElement.click();
   }
 
   showFileUpload() {
     const fileTypes = this.selectedFileTypes.map(val => val.item_text);
     this._ipcService.send('show-file-upload', fileTypes);
+  }
+
+  resetInput() {
+    this.selectedFileTypes = undefined;
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, Input, HostListener, ViewChild } from '@angular/core';
 import { ContextMenuComponent } from 'ngx-contextmenu';
+import { MediaFile } from '../../../models/media-file';
 
 @Component({
   selector: 'app-file-listview',
@@ -7,7 +8,7 @@ import { ContextMenuComponent } from 'ngx-contextmenu';
   styleUrls: ['./file-listview.component.css']
 })
 export class FileListviewComponent implements OnInit {
-  @Input() files;
+  @Input() files: MediaFile[];
   public selectedFile = null;
   @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
   constructor(private eRef: ElementRef) { }

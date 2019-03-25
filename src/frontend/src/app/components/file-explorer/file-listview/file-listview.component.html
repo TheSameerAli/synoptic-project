@@ -3,22 +3,24 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Last modified</th>
+        <th>Type</th>
         <th>File Size</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let file of files; let i = index" [class.clicked]="i === selectedFile" (click)="selectFile(i)"
-        [contextMenu]="basicMenu" [contextMenuSubject]="file">
-        <td><span class="mr-3" style="color: blue" [innerHtml]="file.icon"></span>
+      <tr *ngFor="let file of files; let i = index" [class.clicked]="i === selectedFile" (click)="selectFile(i)">
+        <td>
           <span class="filename">{{file.name}}</span>
         </td>
-        <td>{{file.date_modified}}</td>
+        <td>{{file.type}}</td>
         <td>{{file.file_size}}</td>
       </tr>
     </tbody>
   </table>
+
+  <ng-container *ngIf="!files.length">No files found. Upload some files by clicking on the "New" button.</ng-container>
+  
 </div>
 
 <!-- <context-menu>
