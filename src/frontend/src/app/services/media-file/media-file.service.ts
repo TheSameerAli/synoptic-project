@@ -21,7 +21,7 @@ export class MediaFileService {
   }
 
   remove(mediaFile: MediaFile) {
-    const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.path === mediaFile.path);
+    const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
     this.mediaFiles.splice(mediaFileIndex, 1);
   }
 }

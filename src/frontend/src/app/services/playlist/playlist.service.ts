@@ -21,12 +21,13 @@ export class PlaylistService {
   }
 
   delete(playlist: Playlist) {
-    const playlistIndex = this.playlists.findIndex(p => p.name === playlist.name);
+    const playlistIndex = this.playlists.findIndex(p => p.id === playlist.id);
     this.playlists.splice(playlistIndex, 1);
   }
 
   rename(playlist: Playlist, newName: string) {
-    const playlistIndex  = this.playlists.findIndex(p => p.name === playlist.name);
+    console.log(playlist);
+    const playlistIndex  = this.playlists.findIndex(p => p.id === playlist.id);
     this.playlists[playlistIndex].name = newName;
   }
 }

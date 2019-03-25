@@ -21,12 +21,12 @@ export class CategoryService {
   }
 
   rename(category: Category, newName: string) {
-    const categoryFoundIndex = this.categories.findIndex(c => c.name === category.name);
+    const categoryFoundIndex = this.categories.findIndex(c => c.id === category.id);
     this.categories[categoryFoundIndex].name = newName;
   }
 
   delete(category: Category) {
-    const categoryFoundIndex = this.categories.findIndex(c => c.name === category.name);
+    const categoryFoundIndex = this.categories.findIndex(c => c.id === category.id);
     this.categories.splice(categoryFoundIndex, 1);
   }
 }
