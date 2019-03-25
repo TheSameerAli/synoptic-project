@@ -1,0 +1,46 @@
+.toolbar-btn {
+  padding: 5px;
+  border-radius: 50px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.toolbar-btn:hover:not(.disabled) {
+  background-color: #cccccc79;
+  box-shadow: 1px 1px 1px #8f8f8f5b;
+  cursor: pointer;
+}
+
+.disabled {
+  color: rgba(158, 158, 158, 0.486);
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Table styles */
+
+.table thead>tr>th {
+  border-top: none;
+}
+
+.table tbody>tr {
+  border-bottom: 1px solid rgba(204, 204, 204, 0.548);
+  font-size: 15px;
+  font-family: 'Roboto';
+}
+
+.table tbody>tr>td {
+  color: rgb(32, 32, 32);
+}
+
+.table tbody>tr.clicked {
+  background-color: rgba(60, 163, 163, 0.527);
+}
+
+.table tbody>tr.clicked>td {
+  color: #057575 !important;
+}
+
+.table tbody>tr:hover:not(.clicked) {
+  background-color: rgba(214, 214, 214, 0.349);
+}

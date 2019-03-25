@@ -1,3 +1,14 @@
-<router-outlet></router-outlet>
+<app-topnav></app-topnav>
+
+<div class="row">
+  <div class="col-md-3">
+    <app-sidenav></app-sidenav>
+  </div>
+  <div class="col-md-8">
+        <router-outlet></router-outlet>
+  </div>
+</div>
+
+
 
 <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>

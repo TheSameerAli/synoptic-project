@@ -1,0 +1,43 @@
+<div class="toolbar">
+  <div class="buttons">
+    <div data-toggle="modal" data-target="#add-category-modal" class="toolbar-btn button-add d-inline">
+      <i class="fas fa-plus"></i>
+    </div>  
+
+    <div data-toggle="modal" data-target="#edit-category-modal" class="toolbar-btn button-add d-inline" 
+    [class.disabled]="selectedCategoryIndex === undefined">
+      <i class="fas fa-edit"></i>
+    </div>
+    <div (click)="deleteCategory()" class="toolbar-btn button-add d-inline" 
+    [class.disabled]="selectedCategoryIndex === undefined">
+      <i class="fas fa-trash"></i>
+    </div>
+  </div>
+  <hr>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <ng-container *ngIf="categories.length > 0">
+      <tr [class.clicked]="i === selectedCategoryIndex" 
+      (click)="selectCategory(i)" 
+      *ngFor="let category of categories; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{category.name}}</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+<ng-container *ngIf="!this.categories.length">
+  <p>No categories are found. Create one by clicking the + button above</p>
+</ng-container>
+
+<app-add-category-modal (update)="updateCategoyList()"></app-add-category-modal>
+<app-edit-category-modal [category]="this.categories[selectedCategoryIndex]"></app-edit-category-modal>

@@ -17,6 +17,10 @@ import { FileListviewComponent } from './components/file-explorer/file-listview/
 import { FileGridviewComponent } from './components/file-explorer/file-gridview/file-gridview.component';
 import { FileUploadModalComponent } from './partials/modals/file-upload-modal/file-upload-modal.component';
 import { FolderUploadModalComponent } from './partials/modals/folder-upload-modal/folder-upload-modal.component';
+import { CategoryPageComponent } from './pages/category/category-page/category-page.component';
+import { PlaylistPageComponent } from './pages/playlist/playlist-page/playlist-page.component';
+import { AddCategoryModalComponent } from './partials/modals/categories/add-category-modal/add-category-modal.component';
+import { EditCategoryModalComponent } from './partials/modals/categories/edit-category-modal/edit-category-modal.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { FolderUploadModalComponent } from './partials/modals/folder-upload-moda
     FileListviewComponent,
     FileGridviewComponent,
     FileUploadModalComponent,
-    FolderUploadModalComponent
+    FolderUploadModalComponent,
+    CategoryPageComponent,
+    PlaylistPageComponent,
+    AddCategoryModalComponent,
+    EditCategoryModalComponent
   ],
   imports: [
     BrowserModule,

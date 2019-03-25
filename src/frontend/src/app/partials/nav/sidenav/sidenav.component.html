@@ -13,9 +13,17 @@
 
 
       <ul class="menu-items">
-        <li class="active"><i class="fas fa-file-alt pr-3"></i>Files</li>
-        <li><i class="fas fa-list-ul pr-3"></i>Playlist</li>
-        <li><i class="fas fa-tags pr-3"></i>Categories</li>
+        <li class="active">
+          <a [routerLink]="['/']">
+            <i class="fas fa-file-alt pr-3"></i>Files
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/playlists']"><i class="fas fa-list-ul pr-3"></i>Playlist</a>
+        </li>
+        <li>
+          <a [routerLink]="['/categories']"><i class="fas fa-tags pr-3"></i>Categories</a>
+        </li>
       </ul>
 </div>
 
