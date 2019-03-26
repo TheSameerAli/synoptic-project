@@ -4,6 +4,7 @@ import { IpcMessageEvent } from 'electron';
 import { forEach } from '@angular/router/src/utils/collection';
 import { MediaFileService } from '../../../services/media-file/media-file.service';
 import { MediaFile } from '../../../models/media-file';
+import { FileTypeService } from '../../../services/file-types/file-type.service';
 
 @Component({
   selector: 'app-file-upload-modal',
@@ -11,13 +12,7 @@ import { MediaFile } from '../../../models/media-file';
   styleUrls: ['./file-upload-modal.component.css']
 })
 export class FileUploadModalComponent implements OnInit {
-  public fileTypes = [
-    { item_id: 1, item_text: 'AAC' },
-    { item_id: 2, item_text: 'MP3' },
-    { item_id: 3, item_text: 'WAV' },
-    { item_id: 4, item_text: 'MP4' },
-    { item_id: 5, item_text: 'AVI' }
-  ];
+  public fileTypes = [];
   public selectedFileTypes;
   public dropdownSettings = {
     singleSelection: false,
@@ -30,22 +25,17 @@ export class FileUploadModalComponent implements OnInit {
   };
   @ViewChild('close') closeButton: ElementRef;
   @Output() update: EventEmitter<any> = new EventEmitter<any>();
-  constructor(private _ipcService: IpcService, private _mediaFileService: MediaFileService) {
+  constructor(
+    private _ipcService: IpcService,
+    private _mediaFileService: MediaFileService,
+    private _fileTypeService: FileTypeService
+  ) {
+    this.fileTypes = _fileTypeService.getFileTypesAsDropdownList();
   }
 
   ngOnInit() {
-    this._ipcService.on('files', (event, files) => {
-      this.saveFiles(files);
-    });
   }
 
-  saveFiles(files) {
-    files.forEach(file => {
-      this._mediaFileService.add(new MediaFile(file));
-    });
-    this.update.emit();
-    this.closeButton.nativeElement.click();
-  }
 
   showFileUpload() {
     const fileTypes = this.selectedFileTypes.map(val => val.item_text);
@@ -54,6 +44,10 @@ export class FileUploadModalComponent implements OnInit {
 
   resetInput() {
     this.selectedFileTypes = undefined;
+  }
+
+  closeModal() {
+    this.closeButton.nativeElement.click();
   }
 
 }

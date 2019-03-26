@@ -4,17 +4,17 @@
       <tr>
         <th>Name</th>
         <th>Type</th>
-        <th>File Size</th>
+        <!-- <th>File Size</th> -->
       </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let file of files; let i = index" [class.clicked]="i === selectedFile" (click)="selectFile(i)">
+      <tr *ngFor="let file of files; let i = index" [class.clicked]="file.id === selectedFileId" (click)="selectFile(file.id)">
         <td>
           <span class="filename">{{file.name}}</span>
         </td>
         <td>{{file.type}}</td>
-        <td>{{file.file_size}}</td>
+        <!-- <td>{{file.file_size}}</td> -->
       </tr>
     </tbody>
   </table>

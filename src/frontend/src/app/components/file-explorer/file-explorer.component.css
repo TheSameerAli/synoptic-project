@@ -36,3 +36,23 @@
 .new-button button span i {
   margin-right: 10px;
 }
+
+/* Toolbar buttons */
+.toolbar-btn {
+  padding: 5px;
+  border-radius: 50px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.toolbar-btn:hover:not(.disabled) {
+  background-color: #cccccc79;
+  box-shadow: 1px 1px 1px #8f8f8f5b;
+  cursor: pointer;
+}
+
+.disabled {
+  color: rgba(158, 158, 158, 0.486);
+  cursor: default;
+  pointer-events: none;
+}

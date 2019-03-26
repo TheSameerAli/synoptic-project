@@ -23,6 +23,9 @@ import { AddCategoryModalComponent } from './partials/modals/categories/add-cate
 import { EditCategoryModalComponent } from './partials/modals/categories/edit-category-modal/edit-category-modal.component';
 import { AddPlaylistModalComponent } from './partials/modals/playlists/add-playlist-modal/add-playlist-modal.component';
 import { EditPlaylistModalComponent } from './partials/modals/playlists/edit-playlist-modal/edit-playlist-modal.component';
+import { FileSaverComponent } from './partials/functionality/file-saver/file-saver.component';
+import { ViewMediaFileModalComponent } from './partials/modals/media-file/view-media-file-modal/view-media-file-modal.component';
+import { EditMediaFileModalComponent } from './partials/modals/media-file/edit-media-file-modal/edit-media-file-modal.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { EditPlaylistModalComponent } from './partials/modals/playlists/edit-pla
     AddCategoryModalComponent,
     EditCategoryModalComponent,
     AddPlaylistModalComponent,
-    EditPlaylistModalComponent
+    EditPlaylistModalComponent,
+    FileSaverComponent,
+    ViewMediaFileModalComponent,
+    EditMediaFileModalComponent
   ],
   imports: [
     BrowserModule,
