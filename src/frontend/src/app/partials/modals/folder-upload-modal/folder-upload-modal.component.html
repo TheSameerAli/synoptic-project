@@ -1,0 +1,22 @@
+<div class="modal fade" id="folder-upload-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Upload Folders</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>File Type(s)</label>
+        <ng-multiselect-dropdown [placeholder]="'File types'" [data]="fileTypes" [(ngModel)]="selectedFileTypes" [settings]="dropdownSettings">
+        </ng-multiselect-dropdown>
+        <button (click)="showFolderUpload()" class="btn btn-upload mt-2 btn-block">Select Folder(s)</button>
+        <button #close data-dismiss="modal" hidden></button>
+
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+/* Table styles */
+  
+  .table thead>tr>th {
+    border-top: none;
+  }
+  
+  .table tbody>tr {
+    border-bottom: 1px solid rgba(204, 204, 204, 0.548);
+    font-size: 15px;
+    font-family: 'Roboto';
+  }
+  
+  .table tbody>tr>td {
+    color: rgb(32, 32, 32);
+  }
+  
+  .table tbody>tr.clicked {
+    background-color: rgba(60, 163, 163, 0.527);
+  }
+  
+  .table tbody>tr.clicked>td {
+    color: #057575 !important;
+  }
+  
+  .table tbody>tr:hover:not(.clicked) {
+    background-color: rgba(214, 214, 214, 0.349);
+  }
+  

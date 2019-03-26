@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MediaFile } from '../../models/media-file';
+import { MediaFileService } from '../../services/media-file/media-file.service';
+import { StateService } from '../../services/state/state.service';
 
 @Component({
   selector: 'app-file-explorer',
@@ -7,39 +10,41 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class FileExplorerComponent implements OnInit {
-  public files = [
-    {
-      'id': 1,
-      'name' : 'Test file.docx',
-      'date_modified' : '20 Jan 2019 16:49',
-      'file_size': '1.26Mb',
-      'icon': '<i class="fas fa-file-word"></i>'
-    },
-    {
-      'id': 2,
-      'name' : 'Test file.docx',
-      'date_modified' : '20 Jan 2019 12:30',
-      'file_size': '1.26Mb',
-      'icon': '<i class="fas fa-file-word"></i>'
-    },
-    {
-      'id': 3,
-      'name' : 'Test file.docx',
-      'date_modified' : '20 Jan 2019 16:13',
-      'file_size': '1.26Mb',
-      'icon': '<i class="fas fa-file-word"></i>'
-    }
-  ];
+  public files: MediaFile[];
   public viewOptions = FileViewOptions;
-  public selectedView: FileViewOptions = FileViewOptions.Grid;
+  public selectedView: FileViewOptions = FileViewOptions.List;
+  public selectedFileId: string = undefined;
+  public selectedFile: MediaFile = undefined;
 
-  constructor() { }
+  constructor(private _mediaFileService: MediaFileService, private _stateService: StateService) { }
 
   ngOnInit() {
+    this.updateFileList();
+    this._stateService.stateLoaded.subscribe(() => {
+      this.updateFileList();
+    });
   }
 
   changeView(viewOption: FileViewOptions) {
     this.selectedView = viewOption;
+  }
+
+  updateFileList() {
+    this.files = this._mediaFileService.getAllMediaFiles();
+  }
+
+  changeSelectedFileId(fileId) {
+    this.selectedFileId = fileId;
+    if (fileId) {
+      this.selectedFile = this.files.find(f => f.id === fileId);
+      return;
+    }
+  }
+
+  deleteFile() {
+    this._mediaFileService.remove(this.files.find(f => f.id === this.selectedFileId));
+    this.updateFileList();
+    this.selectedFileId = undefined;
   }
 }
 export enum FileViewOptions {

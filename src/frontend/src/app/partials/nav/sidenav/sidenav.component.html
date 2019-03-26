@@ -1,14 +1,40 @@
 <div class="left-sidebar">
-
-      <div class="new-button m-2 mb-4">
-        <button class="btn btn-custom">
-          <span><i class="fas fa-plus-square"></i> New </span>
-        </button>
-      </div>
-
-      <ul class="menu-items">
-        <li class="active"><i class="fas fa-file-alt pr-3"></i>Files</li>
-        <li><i class="fas fa-list-ul pr-3"></i>Playlist</li>
-        <li><i class="fas fa-tags pr-3"></i>Categories</li>
-      </ul>
+  <div class="state-management-toolbar mt-4 mb-4 ml-2">
+    <div 
+    class="toolbar-btn d-inline"
+    data-toggle="tooltip" 
+    data-placement="top" 
+    title="Save current state"
+    (click)="saveState()">
+    <i class="fas fa-save"></i>
+  </div>
+    <div 
+    class="toolbar-btn d-inline" 
+    data-toggle="tooltip" 
+    data-placement="top" 
+    title="Load state from local drive"
+    (click)="loadState()">
+    
+    <i class="fas fa-folder-open"></i>
+  </div>
+    <hr>
+  </div>
+  <ul class="menu-items">
+    <li>
+      <a class="menu-link" [routerLink]="['/']" [routerLinkActiveOptions]="{exact:
+        true}" [routerLinkActive]="['active']">
+        <i class="fas fa-file-alt pr-3"></i>Files
+      </a>
+    </li>
+    <li>
+      <a class="menu-link" [routerLink]="['/playlists']" [routerLinkActive]="['active']">
+        <i class="fas fa-list-ul pr-3"></i> Playlists
+      </a>
+    </li>
+    <li>
+      <a class="menu-link" [routerLink]="['/categories']" [routerLinkActive]="['active']">
+        <i class="fas fa-tags pr-3"></i>Categories
+      </a>
+    </li>
+  </ul>
 </div>

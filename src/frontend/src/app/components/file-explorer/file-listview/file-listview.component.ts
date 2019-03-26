@@ -1,5 +1,6 @@
-import { Component, OnInit, ElementRef, Input, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, Input, HostListener, ViewChild, Output, EventEmitter } from '@angular/core';
 import { ContextMenuComponent } from 'ngx-contextmenu';
+import { MediaFile } from '../../../models/media-file';
 
 @Component({
   selector: 'app-file-listview',
@@ -7,8 +8,9 @@ import { ContextMenuComponent } from 'ngx-contextmenu';
   styleUrls: ['./file-listview.component.css']
 })
 export class FileListviewComponent implements OnInit {
-  @Input() files;
-  public selectedFile = null;
+  @Input() files: MediaFile[];
+  public selectedFileId = undefined;
+  @Output() selectionChange: EventEmitter<any> = new EventEmitter();
   @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
   constructor(private eRef: ElementRef) { }
 
@@ -16,17 +18,20 @@ export class FileListviewComponent implements OnInit {
   }
 
   selectFile(id) {
-    this.selectedFile = id;
+    this.selectedFileId = id;
+    this.selectionChange.emit(this.selectedFileId);
   }
 
   @HostListener('document:click', ['$event'])
   clickout(event) {
     if (this.eRef.nativeElement.contains(event.target)) {
       if (event.path[2].localName === 'thead') {
-        this.selectedFile = null;
+        this.selectedFileId = undefined;
+        this.selectionChange.emit(this.selectedFileId);
       }
     } else {
-      this.selectedFile = null;
+      this.selectedFileId = undefined;
+      this.selectionChange.emit(this.selectedFileId);
     }
   }
 }

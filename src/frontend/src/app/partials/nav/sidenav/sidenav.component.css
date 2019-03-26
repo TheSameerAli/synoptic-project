@@ -1,10 +1,9 @@
-
 .menu-items {
   list-style: none;
   padding: 0px;
 }
 
-.menu-items li {
+.menu-link {
   font-size: 15px;
   padding: 15px;
   color: #575757;
@@ -13,32 +12,26 @@
   font-weight: 500;
 }
 
+.menu-link {
+  color: #575757;
+}
 
-.menu-items li.active {
-  background-color:rgba(60, 163, 163, 0.527);
+.menu-items li a:hover {
+  text-decoration: none;
+}
+
+.active {
+  background-color: rgba(60, 163, 163, 0.527);
   color: #057575;
 }
 
-.menu-items li:hover:not(.active) {
+.menu-link:hover:not(.active) {
   background-color: rgba(204, 204, 204, 0.521);
   cursor: pointer;
 }
 
-.new-button button {
-  padding-right: 15px;
-  padding-left: 15px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  border-radius: 50px;
-  background-color: white;
-  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.336);
-}
 
-.new-button button span {
-  padding: 10px;
-  font-size: 16px;
-}
-
-.new-button button span i {
-  margin-right: 10px;
+.menu-link {
+  display: block;
+  width: inherit;
 }
