@@ -9,11 +9,11 @@ require('./electron/processes/file-operations');
 let win;
 
 function createWindow () {
-
+  let {width, height} = require('electron').screen.getPrimaryDisplay().size
   // Create the browser window.
   win = new BrowserWindow({
-    width: 600, 
-    height: 600,
+    width: width, 
+    height: height,
     backgroundColor: '#ffffff',
     icon: `file://${__dirname}/dist/frontend/assets/logo.png`
   });
