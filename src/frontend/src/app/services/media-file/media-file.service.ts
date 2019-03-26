@@ -24,6 +24,11 @@ export class MediaFileService {
     this.mediaFiles.push(mediaFile);
   }
 
+  addComment(comment: string, mediaFile: MediaFile) {
+    const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+    this.mediaFiles[mediaFileIndex].comment = comment;
+  }
+
   remove(mediaFile: MediaFile) {
     const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
     this.mediaFiles.splice(mediaFileIndex, 1);

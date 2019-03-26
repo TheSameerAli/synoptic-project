@@ -33,7 +33,11 @@
 
               <tr>
                 <td><strong>Comments</strong></td>
-                <td>{{file.comment ? file.comment : 'No comments found for this file'}}</td>
+                <td>
+                  <input type="text" class="form-control" 
+                  [value]="file.comment !== undefined ? file.comment : ''"
+                  [(ngModel)]="newComment">
+                </td>
               </tr>
 
               <tr>
@@ -67,7 +71,7 @@
         <div class="modal-footer">
           <div class="text-right">
             <button data-dismiss="modal" class="btn btn-secondary mr-2">Close</button>
-            <button data-dismiss="modal" class="btn btn-primary">Save</button>
+            <button (click)="save()" data-dismiss="modal" class="btn btn-primary">Save</button>
           </div>
         </div>
       </div>
