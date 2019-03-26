@@ -13,7 +13,7 @@
               <tr>
                 <td width="30%"><strong>File Name</strong></td>
                 <td width="70%">
-                    <input type="text" class="form-control" [value]="file.name">                  
+                    <input type="text" class="form-control" [value]="file.name" [(ngModel)]="newFileName">                  
                 </td>
               </tr>
 
@@ -59,9 +59,7 @@
                     [settings]="dropdownSettings">
                       </ng-multiselect-dropdown>
                 </td>
-                <td *ngIf="playlists.length === 0">
-                  No playlists exist. Create a playlist to assign this file.
-                </td>
+                <td *ngIf="categories.length === 0">No playlists exist. Create a playlist to assign this file.</td>
               </tr>
 
               <tr>

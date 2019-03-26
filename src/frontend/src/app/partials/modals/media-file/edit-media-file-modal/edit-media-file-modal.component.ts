@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { MediaFile } from '../../../../models/media-file';
 import { Playlist } from '../../../../models/playlist';
 import { Category } from '../../../../models/category';
@@ -16,6 +16,7 @@ import { Image } from '../../../../models/image';
 })
 export class EditMediaFileModalComponent implements OnInit, OnChanges {
   @Input() file: MediaFile;
+  @Output() update: EventEmitter<any> = new EventEmitter();
 
   public playlists = [];
   public categories = [];
@@ -25,6 +26,7 @@ export class EditMediaFileModalComponent implements OnInit, OnChanges {
 
   public newComment: string;
   public newImageFilePath: string;
+  public newFileName: string;
 
   public dropdownSettings = {
     singleSelection: false,
@@ -55,8 +57,10 @@ export class EditMediaFileModalComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    this.newFileName = this.file.name;
     this.loadCategories();
     this.loadComment();
+    this.loadPlaylists();
   }
 
   loadComment() {
@@ -73,6 +77,14 @@ export class EditMediaFileModalComponent implements OnInit, OnChanges {
     }
   }
 
+  loadPlaylists() {
+    if (this.file.playlists) {
+      this.selectedPlaylists = this.file.playlists.map(playlist => {
+        return {item_id: playlist.id, item_text: playlist.name};
+      });
+    }
+  }
+
   loadData() {
     this.playlists = this._playlistService.getPlaylists().map((playlist) => {
       return {item_id: playlist.id, item_text: playlist.name};
@@ -83,6 +95,9 @@ export class EditMediaFileModalComponent implements OnInit, OnChanges {
   }
 
   save() {
+    if (this.newFileName !== this.file.name) {
+      this._mediaFileService.renameFile(this.newFileName, this.file);
+    }
     if (this.newComment) {
       this._mediaFileService.addComment(this.newComment, this.file);
     }
@@ -99,6 +114,15 @@ export class EditMediaFileModalComponent implements OnInit, OnChanges {
       });
       this._mediaFileService.addCategories(categories, this.file);
     }
+
+    if (this.selectedPlaylists) {
+      const playlists = this.selectedPlaylists.map(pl => {
+        return this._playlistService.getById(pl.item_id);
+      });
+      this._mediaFileService.addPlaylists(playlists, this.file);
+    }
+
+    this.update.emit();
   }
 
   openImageDialog() {

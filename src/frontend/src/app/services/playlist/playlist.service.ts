@@ -16,6 +16,10 @@ export class PlaylistService {
     return this.playlists;
   }
 
+  getById(id: string) {
+    return this.playlists.find(pl => pl.id === id);
+  }
+
   setPlaylists(playlists: Playlist[]) {
     this.playlists = playlists;
   }

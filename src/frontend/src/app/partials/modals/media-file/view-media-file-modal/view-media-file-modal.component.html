@@ -36,7 +36,7 @@
                   <p *ngIf="!file.categories">No categories assigned to this file</p>
                   <p *ngIf="file.categories">
                     <ng-container *ngFor="let category of file.categories; let i = index">
-                      <div class="badge badge-secondary d-inline mr-2">
+                      <div class="badge badge-primary d-inline mr-2">
                         {{category.name}}
                       </div>
                     </ng-container>
@@ -46,7 +46,16 @@
 
               <tr>
                 <td><strong>Playlists</strong></td>
-                <td>Test playlist 1; Test playlist 2</td>
+                <td>
+                    <p *ngIf="!file.playlists">No playlists assigned to this file</p>
+                    <p *ngIf="file.playlists">
+                      <ng-container *ngFor="let playlist of file.playlists; let i = index">
+                        <div class="badge badge-primary d-inline mr-2">
+                          {{playlist.name}}
+                        </div>
+                      </ng-container>
+                    </p>
+                  </td>
               </tr>
             </tbody>
           </table>
