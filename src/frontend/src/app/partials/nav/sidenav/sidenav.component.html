@@ -1,15 +1,20 @@
 <div class="left-sidebar">
-      <ul class="menu-items">
-        <li class="active">
-          <a [routerLink]="['/']">
-            <i class="fas fa-file-alt pr-3"></i>Files
-          </a>
-        </li>
-        <li>
-          <a [routerLink]="['/playlists']"><i class="fas fa-list-ul pr-3"></i>Playlist</a>
-        </li>
-        <li>
-          <a [routerLink]="['/categories']"><i class="fas fa-tags pr-3"></i>Categories</a>
-        </li>
-      </ul>
+  <ul class="menu-items">
+    <li>
+      <a class="menu-link" [routerLink]="['/']">
+        <i class="fas fa-file-alt pr-3"></i>Files
+
+      </a>
+    </li>
+    <li>
+      <a class="menu-link" [routerLink]="['/playlists']">
+        <i class="fas fa-list-ul pr-3"></i> Playlists
+      </a>
+    </li>
+    <li>
+      <a class="menu-link" [routerLink]="['/categories']">
+        <i class="fas fa-tags pr-3"></i>Categories
+      </a>
+    </li>
+  </ul>
 </div>
