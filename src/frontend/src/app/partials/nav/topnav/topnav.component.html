@@ -11,7 +11,7 @@
               <div class="input-group-prepend">
                   <span class="input-group-text search-icon"><i class="fas fa-search"></i></span>
               </div>
-              <input type="text" class="form-control searchbox" placeholder="Search Files...">
+              <input type="text" (keyup)="executeSearch()" [(ngModel)]="searchQuery" class="form-control searchbox" placeholder="Search Files...">
           </div>
         </div>
       </div>

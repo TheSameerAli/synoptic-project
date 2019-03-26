@@ -1,7 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { MediaFile } from '../../models/media-file';
-import { MediaFileService } from '../../services/media-file/media-file.service';
-import { StateService } from '../../services/state/state.service';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  MediaFile
+} from '../../models/media-file';
+import {
+  MediaFileService
+} from '../../services/media-file/media-file.service';
+import {
+  StateService
+} from '../../services/state/state.service';
+import {
+  ActivatedRoute, Route
+} from '@angular/router';
 
 @Component({
   selector: 'app-file-explorer',
@@ -16,12 +28,23 @@ export class FileExplorerComponent implements OnInit {
   public selectedFileId: string = undefined;
   public selectedFile: MediaFile = undefined;
 
-  constructor(private _mediaFileService: MediaFileService, private _stateService: StateService) { }
+  constructor(private _mediaFileService: MediaFileService,
+    private _stateService: StateService,
+    private _activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.updateFileList();
     this._stateService.stateLoaded.subscribe(() => {
       this.updateFileList();
+    });
+    // Search functionality
+    this._activatedRoute.queryParams.subscribe(params => {
+      if (params['searchQuery']) {
+        this.filterFiles(params['searchQuery']);
+      } else {
+        this.updateFileList();
+      }
     });
   }
 
@@ -46,8 +69,17 @@ export class FileExplorerComponent implements OnInit {
     this.updateFileList();
     this.selectedFileId = undefined;
   }
+
+  filterFiles(filter: string) {
+    this.files = this._mediaFileService.getAllMediaFiles()
+      .filter(mf => mf.name.toLowerCase().includes(filter.toLowerCase()));
+    if (this.files.length === 0) {
+      this.files = this._mediaFileService.getAllMediaFiles()
+      .filter(mf => mf.type.toLowerCase().includes(filter.toLowerCase()));
+    }
+  }
 }
 export enum FileViewOptions {
   List = 0,
-  Grid = 1
+    Grid = 1
 }
