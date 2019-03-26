@@ -21,8 +21,8 @@ function createWindow () {
   win.maximize()
 
 
-  // win.loadURL(`file://${__dirname}/dist/frontend/index.html`) // Use for production build
-  win.loadURL('http://localhost:4200');
+  win.loadURL(`file://${__dirname}/dist/frontend/index.html`) // Use for production build
+  // win.loadURL('http://localhost:4200');
 
   //// uncomment below to open the DevTools.
   // win.webContents.openDevTools()
