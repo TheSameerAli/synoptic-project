@@ -20,6 +20,10 @@ export class CategoryService {
     this.categories = categories;
   }
 
+  getById(id: string) {
+    return this.categories.find(c => c.id === id);
+  }
+
   add(category: Category) {
     this.categories.push(category);
   }

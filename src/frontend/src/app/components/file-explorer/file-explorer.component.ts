@@ -32,13 +32,13 @@ export class FileExplorerComponent implements OnInit {
   updateFileList() {
     this.files = this._mediaFileService.getAllMediaFiles();
   }
-  changeSelectedFileId(event) {
-    this.selectedFileId = event;
-    if (event) {
-      this.selectedFile = this.files.find(f => f.id === event);
+
+  changeSelectedFileId(fileId) {
+    this.selectedFileId = fileId;
+    if (fileId) {
+      this.selectedFile = this.files.find(f => f.id === fileId);
       return;
     }
-    // this.selectedFile = undefined;
   }
 
   deleteFile() {

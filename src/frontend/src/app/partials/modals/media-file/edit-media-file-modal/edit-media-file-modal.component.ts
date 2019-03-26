@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { MediaFile } from '../../../../models/media-file';
 import { Playlist } from '../../../../models/playlist';
 import { Category } from '../../../../models/category';
@@ -14,7 +14,7 @@ import { Image } from '../../../../models/image';
   templateUrl: './edit-media-file-modal.component.html',
   styleUrls: ['./edit-media-file-modal.component.css']
 })
-export class EditMediaFileModalComponent implements OnInit {
+export class EditMediaFileModalComponent implements OnInit, OnChanges {
   @Input() file: MediaFile;
 
   public playlists = [];
@@ -42,20 +42,43 @@ export class EditMediaFileModalComponent implements OnInit {
     private _stateService: StateService,
     private _ipcService: IpcService) {
       this._stateService.stateLoaded.subscribe(() => {
-        this.ngOnInit();
+        this.loadData();
       });
     }
 
   ngOnInit() {
+    this.loadData();
+    this._ipcService.on('image-path', (event, data) => {
+      this.newImageFilePath = data;
+      this.file.image = new Image(data, data);
+    });
+  }
+
+  ngOnChanges() {
+    this.loadCategories();
+    this.loadComment();
+  }
+
+  loadComment() {
+    if (this.file.comment) {
+      this.newComment = this.file.comment;
+    }
+  }
+
+  loadCategories() {
+    if (this.file.categories) {
+      this.selectedCategories = this.file.categories.map(category => {
+        return {item_id: category.id, item_text: category.name};
+      });
+    }
+  }
+
+  loadData() {
     this.playlists = this._playlistService.getPlaylists().map((playlist) => {
       return {item_id: playlist.id, item_text: playlist.name};
     });
     this.categories = this._categoryService.getCategories().map((category) => {
       return {item_id: category.id, item_text: category.name};
-    });
-    this._ipcService.on('image-path', (event, data) => {
-      this.newImageFilePath = data;
-      this.file.image = new Image(data, data);
     });
   }
 
@@ -68,6 +91,13 @@ export class EditMediaFileModalComponent implements OnInit {
       const imagePathSplit = this.newImageFilePath.split('/');
       const image = new Image(imagePathSplit[imagePathSplit.length - 1].split('.')[0], this.newImageFilePath);
       this._mediaFileService.addImage(image, this.file);
+    }
+
+    if (this.selectedCategories) {
+      const categories = this.selectedCategories.map(sc => {
+        return this._categoryService.getById(sc.item_id);
+      });
+      this._mediaFileService.addCategories(categories, this.file);
     }
   }
 

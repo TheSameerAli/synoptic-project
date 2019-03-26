@@ -47,5 +47,5 @@
 <!-- Modals -->
 <app-file-upload-modal (update)="updateFileList()"></app-file-upload-modal>
 <app-folder-upload-modal></app-folder-upload-modal>
-<app-view-media-file-modal [file]="selectedFile"></app-view-media-file-modal>
-<app-edit-media-file-modal [file]="selectedFile"></app-edit-media-file-modal>
+<app-view-media-file-modal *ngIf="selectedFile !== undefined" [file]="selectedFile"></app-view-media-file-modal>
+<app-edit-media-file-modal *ngIf="selectedFile !== undefined" [file]="selectedFile"></app-edit-media-file-modal>

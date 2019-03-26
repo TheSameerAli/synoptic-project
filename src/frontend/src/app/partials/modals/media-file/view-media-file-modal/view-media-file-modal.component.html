@@ -32,7 +32,16 @@
 
               <tr>
                 <td><strong>Categories</strong></td>
-                <td>Test category 1; Test category 2;</td>
+                <td>
+                  <p *ngIf="!file.categories">No categories assigned to this file</p>
+                  <p *ngIf="file.categories">
+                    <ng-container *ngFor="let category of file.categories; let i = index">
+                      <div class="badge badge-secondary d-inline mr-2">
+                        {{category.name}}
+                      </div>
+                    </ng-container>
+                  </p>
+                </td>
               </tr>
 
               <tr>

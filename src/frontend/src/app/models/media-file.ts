@@ -11,8 +11,8 @@ export class MediaFile {
     path: string;
     type: string;
     comment?: string;
-    categories?: Category[];
-    playlists?: Playlist[];
+    categories?: Category[] = [];
+    playlists?: Playlist[] = [];
     image: Image;
 
     constructor(path: string) {
@@ -21,6 +21,8 @@ export class MediaFile {
         this.name = pathArray[pathArray.length - 1].split('.')[0];
         this.type = pathArray[pathArray.length - 1].split('.')[1];
         this.path = path;
+        this.categories = [];
+        this.playlists = [];
     }
 
     setComment(comment: string) {
