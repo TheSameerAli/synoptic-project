@@ -16,6 +16,10 @@ export class MediaFileService {
     return this.mediaFiles;
   }
 
+  setFiles(files: MediaFile[]) {
+    this.mediaFiles = files;
+  }
+
   add(mediaFile: MediaFile) {
     this.mediaFiles.push(mediaFile);
   }

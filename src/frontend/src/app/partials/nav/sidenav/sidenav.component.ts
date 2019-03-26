@@ -1,4 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+import {
+  StateService
+} from '../../../services/state/state.service';
+import {
+  Router,
+  NavigationEnd
+} from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
@@ -7,9 +17,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _stateService: StateService, private _router: Router) {}
 
   ngOnInit() {
+  }
+
+  saveState() {
+    this._stateService.save();
+  }
+
+  loadState() {
+    this._stateService.load();
   }
 
 }

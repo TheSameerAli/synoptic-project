@@ -7,6 +7,7 @@ const {
 } = require('electron');
 const recursive = require("recursive-readdir");
 const path = require('path');
+const fs = require('fs')
 
 ipcMain.on('show-file-upload', (event, fileTypes) => {
   dialog.showOpenDialog({
@@ -54,6 +55,30 @@ ipcMain.on('show-folder-upload', (event, fileTypes) => {
         event.sender.send('files', files); // Sends all the files back to the application
       });
     });
+  })
+});
+
+ipcMain.on('save-state', (event, data) => {
+  var savePath = dialog.showSaveDialog({});
+  fs.writeFile(`${savePath}.statefile`, data, function (err) {
+    // file saved or err
+  });
+})
+
+ipcMain.on('load-state', (event) => {
+  dialog.showOpenDialog({
+    properties: ['openFile'],
+    filters: [{
+      'name': 'State File',
+      'extensions': ['statefile']
+    }, ]
+  }, (files) => {
+    if (files) {
+      const filePath = files[0];
+      fs.readFile(filePath, (err, data) => {
+        event.sender.send('state-data', data.toString());
+      })
+    }
   })
 });
 

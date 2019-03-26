@@ -16,6 +16,10 @@ export class PlaylistService {
     return this.playlists;
   }
 
+  setPlaylists(playlists: Playlist[]) {
+    this.playlists = playlists;
+  }
+
   add(playlist: Playlist) {
     this.playlists.push(playlist);
   }

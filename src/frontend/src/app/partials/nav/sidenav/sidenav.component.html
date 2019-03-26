@@ -1,4 +1,24 @@
 <div class="left-sidebar">
+  <div class="state-management-toolbar mt-4 mb-4 ml-2">
+    <div 
+    class="toolbar-btn d-inline"
+    data-toggle="tooltip" 
+    data-placement="top" 
+    title="Save current state"
+    (click)="saveState()">
+    <i class="fas fa-save"></i>
+  </div>
+    <div 
+    class="toolbar-btn d-inline" 
+    data-toggle="tooltip" 
+    data-placement="top" 
+    title="Load state from local drive"
+    (click)="loadState()">
+    
+    <i class="fas fa-folder-open"></i>
+  </div>
+    <hr>
+  </div>
   <ul class="menu-items">
     <li>
       <a class="menu-link" [routerLink]="['/']" [routerLinkActiveOptions]="{exact:

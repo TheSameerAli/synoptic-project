@@ -16,6 +16,10 @@ export class CategoryService {
     return this.categories;
   }
 
+  setCategories(categories: Category[]) {
+    this.categories = categories;
+  }
+
   add(category: Category) {
     this.categories.push(category);
   }

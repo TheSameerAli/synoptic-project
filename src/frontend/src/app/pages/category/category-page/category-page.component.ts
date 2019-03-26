@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { CategoryService } from '../../../services/category/category.service';
 import { Category } from '../../../models/category';
+import { StateService } from '../../../services/state/state.service';
 
 @Component({
   selector: 'app-category-page',
@@ -9,11 +10,17 @@ import { Category } from '../../../models/category';
 })
 export class CategoryPageComponent implements OnInit {
   public categories: Category[];
-  constructor(private _categoryService: CategoryService, private eRef: ElementRef) { }
+  constructor(
+    private _categoryService: CategoryService,
+    private eRef: ElementRef,
+    private _stateService: StateService) { }
   public selectedCategoryIndex: number = undefined;
 
   ngOnInit() {
     this.categories = this._categoryService.getCategories();
+    this._stateService.stateLoaded.subscribe(() => {
+      this.updateCategoyList();
+    });
   }
 
   updateCategoyList() {

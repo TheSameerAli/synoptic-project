@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MediaFile } from '../../models/media-file';
 import { MediaFileService } from '../../services/media-file/media-file.service';
+import { StateService } from '../../services/state/state.service';
 
 @Component({
   selector: 'app-file-explorer',
@@ -15,10 +16,13 @@ export class FileExplorerComponent implements OnInit {
   public selectedFileId: string = undefined;
   public selectedFile: MediaFile = undefined;
 
-  constructor(private _mediaFileService: MediaFileService) { }
+  constructor(private _mediaFileService: MediaFileService, private _stateService: StateService) { }
 
   ngOnInit() {
     this.updateFileList();
+    this._stateService.stateLoaded.subscribe(() => {
+      this.updateFileList();
+    });
   }
 
   changeView(viewOption: FileViewOptions) {
