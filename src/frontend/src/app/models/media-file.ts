@@ -22,4 +22,8 @@ export class MediaFile {
         this.type = pathArray[pathArray.length - 1].split('.')[1];
         this.path = path;
     }
+
+    setComment(comment: string) {
+        this.comment = comment;
+    }
 }

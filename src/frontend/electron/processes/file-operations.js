@@ -82,6 +82,21 @@ ipcMain.on('load-state', (event) => {
   })
 });
 
+ipcMain.on('upload-image', (event) => {
+  dialog.showOpenDialog({
+    properties: ['openFile'],
+    filters: [{
+      'name': 'Image File',
+      'extensions': ['png', 'jpg', 'jpeg', 'bmp']
+    }, ]
+  }, (files) => {
+    if (files) {
+      const filePath = files[0];
+      event.sender.send('image-path', filePath);
+    }
+  })
+});
+
 function ignoreFunc(file, stats) {
   return stats.isDirectory() && path.basename(file) == "test";
 }

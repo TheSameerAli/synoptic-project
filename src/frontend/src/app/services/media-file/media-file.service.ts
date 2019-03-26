@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MediaFile } from '../../models/media-file';
+import { Image } from '../../models/image';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,12 @@ export class MediaFileService {
 
   addComment(comment: string, mediaFile: MediaFile) {
     const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
-    this.mediaFiles[mediaFileIndex].comment = comment;
+    this.mediaFiles[mediaFileIndex].setComment(comment);
+  }
+
+  addImage(image: Image, mediaFile: MediaFile) {
+    const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+    this.mediaFiles[mediaFileIndex].image = image;
   }
 
   remove(mediaFile: MediaFile) {

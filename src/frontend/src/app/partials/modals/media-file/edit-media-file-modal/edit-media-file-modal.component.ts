@@ -6,6 +6,8 @@ import { PlaylistService } from '../../../../services/playlist/playlist.service'
 import { CategoryService } from '../../../../services/category/category.service';
 import { MediaFileService } from '../../../../services/media-file/media-file.service';
 import { StateService } from '../../../../services/state/state.service';
+import { IpcService } from '../../../../services/ipc.service';
+import { Image } from '../../../../models/image';
 
 @Component({
   selector: 'app-edit-media-file-modal',
@@ -22,6 +24,7 @@ export class EditMediaFileModalComponent implements OnInit {
   public selectedCategories;
 
   public newComment: string;
+  public newImageFilePath: string;
 
   public dropdownSettings = {
     singleSelection: false,
@@ -36,7 +39,8 @@ export class EditMediaFileModalComponent implements OnInit {
   constructor(private _playlistService: PlaylistService,
     private _categoryService: CategoryService,
     private _mediaFileService: MediaFileService,
-    private _stateService: StateService) {
+    private _stateService: StateService,
+    private _ipcService: IpcService) {
       this._stateService.stateLoaded.subscribe(() => {
         this.ngOnInit();
       });
@@ -49,12 +53,26 @@ export class EditMediaFileModalComponent implements OnInit {
     this.categories = this._categoryService.getCategories().map((category) => {
       return {item_id: category.id, item_text: category.name};
     });
+    this._ipcService.on('image-path', (event, data) => {
+      this.newImageFilePath = data;
+      this.file.image = new Image(data, data);
+    });
   }
 
   save() {
     if (this.newComment) {
       this._mediaFileService.addComment(this.newComment, this.file);
     }
+
+    if (this.newImageFilePath) {
+      const imagePathSplit = this.newImageFilePath.split('/');
+      const image = new Image(imagePathSplit[imagePathSplit.length - 1].split('.')[0], this.newImageFilePath);
+      this._mediaFileService.addImage(image, this.file);
+    }
+  }
+
+  openImageDialog() {
+    this._ipcService.send('upload-image');
   }
 
 }

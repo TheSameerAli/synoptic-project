@@ -63,6 +63,16 @@
                   No playlists exist. Create a playlist to assign this file.
                 </td>
               </tr>
+
+              <tr>
+                <td><strong>Image</strong></td>
+                <td>
+                  <div class="d-block">
+                    <img class="img" *ngIf="file.image?.path" [src]="'file://' + file.image.path" alt="">
+                  </div>
+                  <button (click)="openImageDialog()" class="btn btn-block btn-primary">Select Image</button>
+                </td>
+              </tr>
             </tbody>
           </table>
           <p *ngIf="!file">No file is selected</p>
