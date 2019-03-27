@@ -13,7 +13,7 @@
       <tr (dblclick)="doubleClick()" *ngFor="let file of files; let i = index" [class.clicked]="file.id === selectedFileId" (click)="selectFile(file.id)">
         <td width="5%">
           <img *ngIf="file.image?.path" width="40" height="40" [src]="'file://' + file.image.path" class="img rounded-circle">
-          <img *ngIf="!file.image?.path" width="30" height="30" src="/assets/default-file.png" class="img">
+          <img *ngIf="!file.image?.path" width="30" height="30" src="./assets/default-file.png" class="img">
         </td>
         <td>
           <span class="filename">{{file.name}}</span>
