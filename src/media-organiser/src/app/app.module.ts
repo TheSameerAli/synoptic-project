@@ -27,6 +27,7 @@ import { FileSaverComponent } from './partials/functionality/file-saver/file-sav
 import { ViewMediaFileModalComponent } from './partials/modals/media-file/view-media-file-modal/view-media-file-modal.component';
 import { EditMediaFileModalComponent } from './partials/modals/media-file/edit-media-file-modal/edit-media-file-modal.component';
 import { RootPageComponent } from './pages/root/root-page/root-page.component';
+import { PlaylistShowPageComponent } from './pages/playlist/playlist-show-page/playlist-show-page.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { RootPageComponent } from './pages/root/root-page/root-page.component';
     FileSaverComponent,
     ViewMediaFileModalComponent,
     EditMediaFileModalComponent,
-    RootPageComponent
+    RootPageComponent,
+    PlaylistShowPageComponent
   ],
   imports: [
     BrowserModule,

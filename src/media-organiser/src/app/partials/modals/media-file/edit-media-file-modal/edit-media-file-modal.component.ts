@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { MediaFile } from '../../../../models/media-file';
-import { Playlist } from '../../../../models/playlist';
+import { Playlist } from '../../../../models/playlist/playlist';
 import { Category } from '../../../../models/category';
 import { PlaylistService } from '../../../../services/playlist/playlist.service';
 import { CategoryService } from '../../../../services/category/category.service';

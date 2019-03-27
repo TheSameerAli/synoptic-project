@@ -9,7 +9,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let file of files; let i = index" [class.clicked]="file.id === selectedFileId" (click)="selectFile(file.id)">
+      <tr (dblclick)="doubleClick()" *ngFor="let file of files; let i = index" [class.clicked]="file.id === selectedFileId" (click)="selectFile(file.id)">
         <td>
           <span class="filename">{{file.name}}</span>
         </td>

@@ -24,7 +24,7 @@
 
   <tbody>
     <ng-container *ngIf="playlists.length > 0">
-      <tr [class.clicked]="i === selectedPlaylistIndex" (click)="selectPlaylist(i)" *ngFor="let playlist of playlists; let i = index">
+      <tr (dblclick)="goToPlaylist(playlist.id)" [class.clicked]="i === selectedPlaylistIndex" (click)="selectPlaylist(i)" *ngFor="let playlist of playlists; let i = index">
         <td>{{i + 1}}</td>
         <td>{{playlist.name}}</td>
       </tr>

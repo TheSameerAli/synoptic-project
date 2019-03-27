@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PlaylistService } from '../../../../services/playlist/playlist.service';
-import { Playlist } from '../../../../models/playlist';
+import { Playlist } from '../../../../models/playlist/playlist';
 
 @Component({
   selector: 'app-add-playlist-modal',

@@ -17,7 +17,7 @@
     </div>
     <div class="float-right mt-3">
         <!-- View file button -->
-        <div 
+        <div #fileViewModal
         data-toggle="modal" 
         data-target="#view-media-file-details" 
         [class.disabled]="selectedFileId === undefined" 
@@ -36,7 +36,7 @@
 
 
   <ng-container *ngIf="selectedView === viewOptions.List">
-    <app-file-listview (selectionChange)="changeSelectedFileId($event)" [files]="files"></app-file-listview>
+    <app-file-listview (dblClick)="openFileViewModal()" (selectionChange)="changeSelectedFileId($event)" [files]="files"></app-file-listview>
   </ng-container>
   <ng-container *ngIf="selectedView === viewOptions.Grid">
     <app-file-gridview [files]="files"></app-file-gridview>

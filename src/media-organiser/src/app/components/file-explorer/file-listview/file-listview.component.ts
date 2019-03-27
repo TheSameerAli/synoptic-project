@@ -11,6 +11,7 @@ export class FileListviewComponent implements OnInit {
   @Input() files: MediaFile[];
   public selectedFileId = undefined;
   @Output() selectionChange: EventEmitter<any> = new EventEmitter();
+  @Output() dblClick: EventEmitter<any> = new EventEmitter();
   @ViewChild(ContextMenuComponent) public basicMenu: ContextMenuComponent;
   constructor(private eRef: ElementRef) { }
 
@@ -33,5 +34,9 @@ export class FileListviewComponent implements OnInit {
       this.selectedFileId = undefined;
       this.selectionChange.emit(this.selectedFileId);
     }
+  }
+
+  doubleClick() {
+    this.dblClick.emit();
   }
 }

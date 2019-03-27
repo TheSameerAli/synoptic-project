@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Playlist } from '../../../../models/playlist';
+import { Playlist } from '../../../../models/playlist/playlist';
 import { PlaylistService } from '../../../../services/playlist/playlist.service';
 
 @Component({

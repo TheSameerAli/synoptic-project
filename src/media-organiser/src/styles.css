@@ -18,3 +18,7 @@
   cursor: default;
   pointer-events: none;
 }
+
+body {
+  overflow-x: hidden;
+}

@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { MediaFile } from '../../models/media-file';
 import { Image } from '../../models/image';
 import { Category } from '../../models/category';
-import { Playlist } from '../../models/playlist';
+import { Playlist } from '../../models/playlist/playlist';
+import { PlaylistService } from '../playlist/playlist.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaFileService {
   private mediaFiles: MediaFile[];
-  constructor() {
+  constructor(private _playlistService: PlaylistService) {
     if (!this.mediaFiles) {
       this.mediaFiles = [];
     }
@@ -17,6 +18,19 @@ export class MediaFileService {
 
   getAllMediaFiles() {
     return this.mediaFiles;
+  }
+
+  getAllByPlaylistId(playlistId: string) {
+    const mediaFilesFound: MediaFile[] = [];
+    for (let i = 0; i < this.mediaFiles.length; i++) {
+      const mediaFile = this.mediaFiles[i];
+      if (mediaFile.playlists) {
+        if (mediaFile.playlists.find(p => p.id === playlistId)) {
+          mediaFilesFound.push(mediaFile);
+        }
+      }
+    }
+    return mediaFilesFound;
   }
 
   setFiles(files: MediaFile[]) {
@@ -58,6 +72,7 @@ export class MediaFileService {
   private addPlaylist(playlist: Playlist, mediaFile: MediaFile) {
     const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
     this.mediaFiles[mediaFileIndex].playlists.push(playlist);
+    this._playlistService.addMediaFile(mediaFile, playlist);
   }
 
   addPlaylists(playlists: Playlist[], mediaFile: MediaFile) {

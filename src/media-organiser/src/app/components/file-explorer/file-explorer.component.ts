@@ -1,6 +1,8 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  ViewChild,
+  ElementRef
 } from '@angular/core';
 import {
   MediaFile
@@ -12,7 +14,8 @@ import {
   StateService
 } from '../../services/state/state.service';
 import {
-  ActivatedRoute, Route
+  ActivatedRoute,
+  Route
 } from '@angular/router';
 
 @Component({
@@ -27,7 +30,7 @@ export class FileExplorerComponent implements OnInit {
   public selectedView: FileViewOptions = FileViewOptions.List;
   public selectedFileId: string = undefined;
   public selectedFile: MediaFile = undefined;
-
+  @ViewChild('fileViewModal') fileViewModal: ElementRef;
   constructor(private _mediaFileService: MediaFileService,
     private _stateService: StateService,
     private _activatedRoute: ActivatedRoute
@@ -75,8 +78,12 @@ export class FileExplorerComponent implements OnInit {
       .filter(mf => mf.name.toLowerCase().includes(filter.toLowerCase()));
     if (this.files.length === 0) {
       this.files = this._mediaFileService.getAllMediaFiles()
-      .filter(mf => mf.type.toLowerCase().includes(filter.toLowerCase()));
+        .filter(mf => mf.type.toLowerCase().includes(filter.toLowerCase()));
     }
+  }
+
+  openFileViewModal() {
+    this.fileViewModal.nativeElement.click();
   }
 }
 export enum FileViewOptions {

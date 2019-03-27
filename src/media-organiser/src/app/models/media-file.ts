@@ -1,5 +1,5 @@
 import { Category } from './category';
-import { Playlist } from './playlist';
+import { Playlist } from './playlist/playlist';
 import { Image } from './image';
 import * as uuidv1 from 'uuid';
 

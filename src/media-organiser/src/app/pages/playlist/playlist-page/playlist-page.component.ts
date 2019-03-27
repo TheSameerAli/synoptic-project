@@ -1,7 +1,9 @@
 import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
-import { Playlist } from '../../../models/playlist';
+import { Playlist } from '../../../models/playlist/playlist';
 import { PlaylistService } from '../../../services/playlist/playlist.service';
 import { StateService } from '../../../services/state/state.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-playlist-page',
@@ -14,7 +16,8 @@ export class PlaylistPageComponent implements OnInit {
   constructor(
     private _playlistService: PlaylistService,
     private eRef: ElementRef,
-    private _stateService: StateService) { }
+    private _stateService: StateService,
+    private _router: Router) { }
 
   ngOnInit() {
     this.playlists = this._playlistService.getPlaylists();
@@ -39,6 +42,10 @@ export class PlaylistPageComponent implements OnInit {
 
   public resetSelectedPlaylist() {
     this.selectedPlaylistIndex = undefined;
+  }
+
+  public goToPlaylist(id: string) {
+    this._router.navigate(['/playlist', id]);
   }
 
   @HostListener('document:click', ['$event'])
