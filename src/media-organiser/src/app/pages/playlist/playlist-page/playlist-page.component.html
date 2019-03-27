@@ -1,0 +1,39 @@
+<div class="toolbar">
+  <div class="buttons">
+    <div data-toggle="modal" data-target="#add-playlist-modal" class="toolbar-btn button-add d-inline">
+      <i class="fas fa-plus"></i>
+    </div>
+
+    <div data-toggle="modal" data-target="#edit-playlist-modal" class="toolbar-btn button-add d-inline" [class.disabled]="selectedPlaylistIndex === undefined">
+      <i class="fas fa-edit"></i>
+    </div>
+    <div (click)="deletePlaylist()" class="toolbar-btn button-add d-inline" [class.disabled]="selectedPlaylistIndex === undefined">
+      <i class="fas fa-trash"></i>
+    </div>
+  </div>
+  <hr>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <ng-container *ngIf="playlists.length > 0">
+      <tr (dblclick)="goToPlaylist(playlist.id)" [class.clicked]="i === selectedPlaylistIndex" (click)="selectPlaylist(i)" *ngFor="let playlist of playlists; let i = index">
+        <td>{{i + 1}}</td>
+        <td>{{playlist.name}}</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+<ng-container *ngIf="!this.playlists.length">
+  <p>No playlists are found. Create one by clicking the + button above</p>
+</ng-container>
+
+<app-add-playlist-modal (update)="updatePlaylistsList()"></app-add-playlist-modal>
+<app-edit-playlist-modal (update)="updatePlaylistsList()" [playlist]="this.playlists[selectedPlaylistIndex]"></app-edit-playlist-modal>

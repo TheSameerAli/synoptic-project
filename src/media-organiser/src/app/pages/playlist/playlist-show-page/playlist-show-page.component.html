@@ -1,0 +1,36 @@
+<div class="toolbar">
+  <div class="buttons">
+    <a [routerLink]="['/playlists']">
+      <div class="toolbar-btn button-add d-inline">
+        <i class="fas fa-arrow-left"></i>
+      </div>
+    </a>
+  </div>
+  <hr>
+
+  <div class="content">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let file of playlist.mediaFiles; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{file.name}}</td>
+          <td>
+            <div class="reorder-icons">
+              <i (click)="moveUp(i)" [class.disabled]="i === 0" class="fas fa-arrow-up mr-2 c-pointer"></i>
+              <i (click)="moveDown(i)" [class.disabled]="i === playlist.mediaFiles.length - 1" 
+              class="fas fa-arrow-down c-pointer"></i>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

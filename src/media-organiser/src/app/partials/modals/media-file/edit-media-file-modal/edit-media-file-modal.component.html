@@ -1,0 +1,88 @@
+<div class="modal fade" id="edit-media-file-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">File Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered" *ngIf="file">
+            <tbody>
+              <tr>
+                <td width="30%"><strong>File Name</strong></td>
+                <td width="70%">
+                    <input type="text" class="form-control" [value]="file.name" [(ngModel)]="newFileName">                  
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>File Type</strong></td>
+                <td>
+                  <input type="text" class="form-control" [value]="file.type" disabled>
+                </td>
+              </tr>
+
+              <tr>
+                  <td><strong>File Path</strong></td>
+                  <td>
+                  <input type="text" class="form-control" [value]="file.path" disabled>                    
+                  </td>
+                </tr>
+
+              <tr>
+                <td><strong>Comments</strong></td>
+                <td>
+                  <input type="text" class="form-control" 
+                  [value]="file.comment !== undefined ? file.comment : ''"
+                  [(ngModel)]="newComment">
+                </td>
+              </tr>
+
+              <tr>
+                <td><strong>Categories</strong></td>
+                <td *ngIf="categories.length > 0">
+                    <ng-multiselect-dropdown [placeholder]="'Categories'" 
+                    [data]="categories" [(ngModel)]="selectedCategories" 
+                    [settings]="dropdownSettings">
+                      </ng-multiselect-dropdown>
+                </td>
+                <td *ngIf="categories.length === 0">No categories exist. Create a category to assign this file.</td>
+              </tr>
+
+              <tr>
+                <td><strong>Playlists</strong></td>
+                <td *ngIf="playlists.length > 0">
+                    <ng-multiselect-dropdown [placeholder]="'Playlists'" 
+                    [data]="playlists" [(ngModel)]="selectedPlaylists" 
+                    [settings]="dropdownSettings">
+                      </ng-multiselect-dropdown>
+                </td>
+                <td *ngIf="playlists.length === 0">No playlists exist. Create a playlist to assign this file.</td>
+              </tr>
+
+              <tr>
+                <td><strong>Image</strong></td>
+                <td>
+                  <div class="d-block text-center">
+                    <img width="150" height="150" class="img mb-2 img-thumbnail" *ngIf="file.image?.path" [src]="'file://' + file.image?.path" alt="">                  
+                  </div>
+                  <button (click)="openImageDialog()" class="btn btn-block btn-primary">Select Image</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p *ngIf="!file">No file is selected</p>
+        </div>
+
+        <div class="modal-footer">
+          <div class="text-right">
+            <button data-dismiss="modal" class="btn btn-secondary mr-2">Close</button>
+            <button (click)="save()" data-dismiss="modal" class="btn btn-primary">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
