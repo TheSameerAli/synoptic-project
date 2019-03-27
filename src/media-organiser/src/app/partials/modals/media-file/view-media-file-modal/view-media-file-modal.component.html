@@ -57,6 +57,15 @@
                     </p>
                   </td>
               </tr>
+
+              <tr>
+                <td><strong>Image</strong></td>
+                <td>
+                  <div class="d-block text-center">
+                    <img width="150" height="150" class="img mb-2 img-thumbnail" *ngIf="file.image.path" [src]="'file://' + file.image.path" alt="">                  
+                  </div>
+                </td>
+              </tr>
             </tbody>
           </table>
           <p *ngIf="!file">No file is selected</p>

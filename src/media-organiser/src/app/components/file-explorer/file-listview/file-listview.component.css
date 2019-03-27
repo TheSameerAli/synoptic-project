@@ -28,3 +28,7 @@
 .table tbody>tr:hover:not(.clicked) {
   background-color: rgba(214, 214, 214, 0.349);
 }
+td {
+  display:table-cell;
+  vertical-align:middle;
+}
