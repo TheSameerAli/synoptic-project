@@ -19,6 +19,9 @@ export class MediaFileService {
     _eventService.onPlaylistRemove.subscribe((playlist) => {
       this.removePlaylistFromAllMediaFiles(playlist);
     });
+    _eventService.onCateogryRemove.subscribe((category) => {
+      this.removeCategoryFromAllMediaFiles(category);
+    });
   }
 
   getAllMediaFiles() {
@@ -57,6 +60,16 @@ export class MediaFileService {
         const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
         const playlistIndex = this.mediaFiles[mediaFileIndex].playlists.findIndex(p => p.id === playlist.id);
         this.mediaFiles[mediaFileIndex].playlists.splice(playlistIndex, 1);
+      }
+    });
+  }
+
+  removeCategoryFromAllMediaFiles(category: Category) {
+    this.mediaFiles.forEach(mediaFile => {
+      if (mediaFile.categories.includes(category)) {
+        const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+        const categoryIndex = this.mediaFiles[mediaFileIndex].categories.findIndex(c => c.id === category.id);
+        this.mediaFiles[mediaFileIndex].categories.splice(categoryIndex, 1);
       }
     });
   }
