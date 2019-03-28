@@ -4,16 +4,21 @@ import { Image } from '../../models/image';
 import { Category } from '../../models/category';
 import { Playlist } from '../../models/playlist/playlist';
 import { PlaylistService } from '../playlist/playlist.service';
+import { EventService } from '../event/event.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaFileService {
   private mediaFiles: MediaFile[];
-  constructor(private _playlistService: PlaylistService) {
+  constructor(private _playlistService: PlaylistService,
+    private _eventService: EventService) {
     if (!this.mediaFiles) {
       this.mediaFiles = [];
     }
+    _eventService.onPlaylistRemove.subscribe((playlist) => {
+      this.removePlaylistFromAllMediaFiles(playlist);
+    });
   }
 
   getAllMediaFiles() {
@@ -44,6 +49,16 @@ export class MediaFileService {
 
   add(mediaFile: MediaFile) {
     this.mediaFiles.push(mediaFile);
+  }
+
+  removePlaylistFromAllMediaFiles(playlist: Playlist) {
+    this.mediaFiles.forEach(mediaFile => {
+      if (mediaFile.playlists.includes(playlist)) {
+        const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+        const playlistIndex = this.mediaFiles[mediaFileIndex].playlists.findIndex(p => p.id === playlist.id);
+        this.mediaFiles[mediaFileIndex].playlists.splice(playlistIndex, 1);
+      }
+    });
   }
 
   addComment(comment: string, mediaFile: MediaFile) {

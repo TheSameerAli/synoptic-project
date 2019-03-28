@@ -10,13 +10,15 @@ import {
 import {
   PlaylistMediaFile
 } from '../../models/playlist/playlist-media-file';
+import { MediaFileService } from '../media-file/media-file.service';
+import { EventService } from '../event/event.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaylistService {
   private playlists: Playlist[];
-  constructor() {
+  constructor(private _eventService: EventService) {
     if (!this.playlists) {
       this.playlists = [];
     }
@@ -52,6 +54,7 @@ export class PlaylistService {
   delete(playlist: Playlist) {
     const playlistIndex = this.playlists.findIndex(p => p.id === playlist.id);
     this.playlists.splice(playlistIndex, 1);
+    this._eventService.onPlaylistRemove.emit(playlist);
   }
 
   rename(playlist: Playlist, newName: string) {
