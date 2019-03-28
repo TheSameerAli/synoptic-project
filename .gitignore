@@ -229,6 +229,9 @@ _Pvt_Extensions
 # Paket dependency manager
 .paket/paket.exe
 
+# State file
+*.statefile
+
 # FAKE - F# Make
 .fake/
 
