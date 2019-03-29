@@ -5,6 +5,7 @@ import { Category } from '../../models/category';
 import { Playlist } from '../../models/playlist/playlist';
 import { PlaylistService } from '../playlist/playlist.service';
 import { EventService } from '../event/event.service';
+import { CastExpr } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,16 @@ export class MediaFileService {
         const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
         const playlistIndex = this.mediaFiles[mediaFileIndex].playlists.findIndex(p => p.id === playlist.id);
         this.mediaFiles[mediaFileIndex].playlists[playlistIndex] = playlist;
+      }
+    });
+  }
+
+  renameCategoryFromMediaFiles(category: Category) {
+    this.mediaFiles.forEach(mediaFile => {
+      if (mediaFile.categories.find(c => c.id === category.id)) {
+        const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+        const categoryIndex = this.mediaFiles[mediaFileIndex].categories.findIndex(c => c.id === category.id);
+        this.mediaFiles[mediaFileIndex].categories[categoryIndex] = category;
       }
     });
   }
@@ -145,6 +156,9 @@ export class MediaFileService {
     });
     this._eventService.onPlaylistRename.subscribe((playlist) => {
       this.renamePlaylistFromMediaFiles(playlist);
+    });
+    this._eventService.onCategoryRename.subscribe((category) => {
+      this.renameCategoryFromMediaFiles(category);
     });
   }
 }

@@ -32,6 +32,7 @@ export class CategoryService {
   rename(category: Category, newName: string) {
     const categoryFoundIndex = this.categories.findIndex(c => c.id === category.id);
     this.categories[categoryFoundIndex].name = newName;
+    this._eventService.onCategoryRename.emit(category);
   }
 
   delete(category: Category) {
