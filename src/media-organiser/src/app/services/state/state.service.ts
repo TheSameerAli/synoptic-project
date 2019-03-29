@@ -41,4 +41,13 @@ export class StateService {
     this._mediaFileService.setFiles(jsonData.files);
     this.stateLoaded.emit();
   }
+
+  reset() {
+    const data = {
+      'categories': [],
+      'playlists': [],
+      'files': []
+    };
+    this.provisionState(JSON.stringify(data));
+  }
 }

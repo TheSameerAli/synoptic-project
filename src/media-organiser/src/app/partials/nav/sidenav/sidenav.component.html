@@ -17,6 +17,16 @@
     
     <i class="fas fa-folder-open"></i>
   </div>
+
+  <div 
+    class="toolbar-btn d-inline" 
+    data-toggle="tooltip" 
+    data-placement="top" 
+    title="Reset the current state"
+    (click)="resetStateConfirm()">
+    
+    <i class="fas fa-redo"></i>
+  </div>
     <hr>
   </div>
   <ul class="menu-items">
@@ -37,3 +47,6 @@
     </li>
   </ul>
 </div>
+<button hidden #openConfirmModal data-toggle="modal" data-target="#reset-state-confirm-modal"></button>
+
+<app-confirm-modal (confirmed)="resetState()" modalId="reset-state-confirm-modal" confirmText="Are you sure you want to reset the current state. You will lose all the unsaved changes. This action is irreversible?" confirmButtonText="Reset"></app-confirm-modal>
