@@ -28,6 +28,7 @@ import { ViewMediaFileModalComponent } from './partials/modals/media-file/view-m
 import { EditMediaFileModalComponent } from './partials/modals/media-file/edit-media-file-modal/edit-media-file-modal.component';
 import { RootPageComponent } from './pages/root/root-page/root-page.component';
 import { PlaylistShowPageComponent } from './pages/playlist/playlist-show-page/playlist-show-page.component';
+import { ConfirmModalComponent } from './partials/modals/confirmation/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { PlaylistShowPageComponent } from './pages/playlist/playlist-show-page/p
     ViewMediaFileModalComponent,
     EditMediaFileModalComponent,
     RootPageComponent,
-    PlaylistShowPageComponent
+    PlaylistShowPageComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,

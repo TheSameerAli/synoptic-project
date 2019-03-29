@@ -7,7 +7,7 @@
     <div data-toggle="modal" data-target="#edit-playlist-modal" class="toolbar-btn button-add d-inline" [class.disabled]="selectedPlaylistIndex === undefined">
       <i class="fas fa-edit"></i>
     </div>
-    <div (click)="deletePlaylist()" class="toolbar-btn button-add d-inline" [class.disabled]="selectedPlaylistIndex === undefined">
+    <div (click)="deletePlaylistConfirm()" class="toolbar-btn button-add d-inline" [class.disabled]="selectedPlaylistIndex === undefined">
       <i class="fas fa-trash"></i>
     </div>
   </div>
@@ -35,5 +35,8 @@
   <p>No playlists are found. Create one by clicking the + button above</p>
 </ng-container>
 
+<button hidden #openConfirmModal data-toggle="modal" data-target="#delete-playlist-confirm-modal"></button>
+
 <app-add-playlist-modal (update)="updatePlaylistsList()"></app-add-playlist-modal>
 <app-edit-playlist-modal (update)="updatePlaylistsList()" [playlist]="this.playlists[selectedPlaylistIndex]"></app-edit-playlist-modal>
+<app-confirm-modal (confirmed)="deletePlaylist()" modalId="delete-playlist-confirm-modal" confirmText="Are you sure you want to delete this playlist?" confirmButtonText="Delete"></app-confirm-modal>

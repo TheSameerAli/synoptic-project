@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { CategoryService } from '../../../services/category/category.service';
 import { Category } from '../../../models/category';
 import { StateService } from '../../../services/state/state.service';
@@ -10,11 +10,14 @@ import { StateService } from '../../../services/state/state.service';
 })
 export class CategoryPageComponent implements OnInit {
   public categories: Category[];
+  public selectedCategoryIndex: number = undefined;
+  public toDeleteCategoryIndex: number;
+  @ViewChild('openConfirmModal') openConfirmModalButton: ElementRef;
+
   constructor(
     private _categoryService: CategoryService,
     private eRef: ElementRef,
     private _stateService: StateService) { }
-  public selectedCategoryIndex: number = undefined;
 
   ngOnInit() {
     this.categories = this._categoryService.getCategories();
@@ -40,6 +43,11 @@ export class CategoryPageComponent implements OnInit {
 
   selectCategory(index) {
     this.selectedCategoryIndex = index;
+  }
+
+  deleteCategoryConfirm() {
+    this.toDeleteCategoryIndex = this.selectedCategoryIndex;
+    this.openConfirmModalButton.nativeElement.click();
   }
 
   deleteCategory() {

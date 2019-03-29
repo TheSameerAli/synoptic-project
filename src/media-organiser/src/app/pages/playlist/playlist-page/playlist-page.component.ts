@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { Playlist } from '../../../models/playlist/playlist';
 import { PlaylistService } from '../../../services/playlist/playlist.service';
 import { StateService } from '../../../services/state/state.service';
@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class PlaylistPageComponent implements OnInit {
   public playlists: Playlist[];
   public selectedPlaylistIndex: number = undefined;
+  public toDeletePlaylistIndex: number;
+  @ViewChild('openConfirmModal') openConfirmModalButton: ElementRef;
   constructor(
     private _playlistService: PlaylistService,
     private eRef: ElementRef,
@@ -26,9 +28,15 @@ export class PlaylistPageComponent implements OnInit {
     });
   }
 
+  public deletePlaylistConfirm() {
+    this.toDeletePlaylistIndex = this.selectedPlaylistIndex;
+    this.openConfirmModalButton.nativeElement.click();
+  }
+
   public deletePlaylist() {
-    this._playlistService.delete(this.playlists[this.selectedPlaylistIndex]);
+    this._playlistService.delete(this.playlists[this.toDeletePlaylistIndex]);
     this.updatePlaylistsList();
+    this.toDeletePlaylistIndex = undefined;
   }
 
   public selectPlaylist(i) {
