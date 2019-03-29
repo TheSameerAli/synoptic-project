@@ -113,6 +113,12 @@ export class MediaFileService {
     });
   }
 
+  updateCategories(categories: Category[], mediaFile: MediaFile) {
+    const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+    this.mediaFiles[mediaFileIndex].categories = [];
+    this.addCategories(categories, mediaFile);
+  }
+
   private addPlaylist(playlist: Playlist, mediaFile: MediaFile) {
     const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
     this.mediaFiles[mediaFileIndex].playlists.push(playlist);

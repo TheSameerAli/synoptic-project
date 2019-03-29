@@ -112,7 +112,7 @@ export class EditMediaFileModalComponent implements OnInit, OnChanges {
       const categories = this.selectedCategories.map(sc => {
         return this._categoryService.getById(sc.item_id);
       });
-      this._mediaFileService.addCategories(categories, this.file);
+      this._mediaFileService.updateCategories(categories, this.file);
     }
 
     if (this.selectedPlaylists) {
