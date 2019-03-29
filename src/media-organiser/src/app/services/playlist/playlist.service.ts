@@ -58,9 +58,9 @@ export class PlaylistService {
   }
 
   rename(playlist: Playlist, newName: string) {
-    console.log(playlist);
     const playlistIndex = this.playlists.findIndex(p => p.id === playlist.id);
     this.playlists[playlistIndex].name = newName;
+    this._eventService.onPlaylistRename.emit(this.playlists[playlistIndex]);
   }
 
   private array_move(arr, old_index, new_index) {

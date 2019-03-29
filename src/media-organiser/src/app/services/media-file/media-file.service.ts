@@ -16,12 +16,7 @@ export class MediaFileService {
     if (!this.mediaFiles) {
       this.mediaFiles = [];
     }
-    _eventService.onPlaylistRemove.subscribe((playlist) => {
-      this.removePlaylistFromAllMediaFiles(playlist);
-    });
-    _eventService.onCateogryRemove.subscribe((category) => {
-      this.removeCategoryFromAllMediaFiles(category);
-    });
+    this.subscribeEvents();
   }
 
   getAllMediaFiles() {
@@ -39,6 +34,16 @@ export class MediaFileService {
       }
     }
     return mediaFilesFound;
+  }
+
+  renamePlaylistFromMediaFiles(playlist: Playlist) {
+    this.mediaFiles.forEach(mediaFile => {
+      if (mediaFile.playlists.find(p => p.id === playlist.id)) {
+        const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+        const playlistIndex = this.mediaFiles[mediaFileIndex].playlists.findIndex(p => p.id === playlist.id);
+        this.mediaFiles[mediaFileIndex].playlists[playlistIndex] = playlist;
+      }
+    });
   }
 
   setFiles(files: MediaFile[]) {
@@ -129,5 +134,17 @@ export class MediaFileService {
   remove(mediaFile: MediaFile) {
     const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
     this.mediaFiles.splice(mediaFileIndex, 1);
+  }
+
+  subscribeEvents() {
+    this._eventService.onPlaylistRemove.subscribe((playlist) => {
+      this.removePlaylistFromAllMediaFiles(playlist);
+    });
+    this._eventService.onCateogryRemove.subscribe((category) => {
+      this.removeCategoryFromAllMediaFiles(category);
+    });
+    this._eventService.onPlaylistRename.subscribe((playlist) => {
+      this.renamePlaylistFromMediaFiles(playlist);
+    });
   }
 }
