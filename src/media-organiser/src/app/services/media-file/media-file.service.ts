@@ -4,16 +4,20 @@ import { Image } from '../../models/image';
 import { Category } from '../../models/category';
 import { Playlist } from '../../models/playlist/playlist';
 import { PlaylistService } from '../playlist/playlist.service';
+import { EventService } from '../event/event.service';
+import { CastExpr } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaFileService {
   private mediaFiles: MediaFile[];
-  constructor(private _playlistService: PlaylistService) {
+  constructor(private _playlistService: PlaylistService,
+    private _eventService: EventService) {
     if (!this.mediaFiles) {
       this.mediaFiles = [];
     }
+    this.subscribeEvents();
   }
 
   getAllMediaFiles() {
@@ -33,6 +37,26 @@ export class MediaFileService {
     return mediaFilesFound;
   }
 
+  renamePlaylistFromMediaFiles(playlist: Playlist) {
+    this.mediaFiles.forEach(mediaFile => {
+      if (mediaFile.playlists.find(p => p.id === playlist.id)) {
+        const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+        const playlistIndex = this.mediaFiles[mediaFileIndex].playlists.findIndex(p => p.id === playlist.id);
+        this.mediaFiles[mediaFileIndex].playlists[playlistIndex] = playlist;
+      }
+    });
+  }
+
+  renameCategoryFromMediaFiles(category: Category) {
+    this.mediaFiles.forEach(mediaFile => {
+      if (mediaFile.categories.find(c => c.id === category.id)) {
+        const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+        const categoryIndex = this.mediaFiles[mediaFileIndex].categories.findIndex(c => c.id === category.id);
+        this.mediaFiles[mediaFileIndex].categories[categoryIndex] = category;
+      }
+    });
+  }
+
   setFiles(files: MediaFile[]) {
     this.mediaFiles = files;
   }
@@ -44,6 +68,26 @@ export class MediaFileService {
 
   add(mediaFile: MediaFile) {
     this.mediaFiles.push(mediaFile);
+  }
+
+  removePlaylistFromAllMediaFiles(playlist: Playlist) {
+    this.mediaFiles.forEach(mediaFile => {
+      if (mediaFile.playlists.includes(playlist)) {
+        const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+        const playlistIndex = this.mediaFiles[mediaFileIndex].playlists.findIndex(p => p.id === playlist.id);
+        this.mediaFiles[mediaFileIndex].playlists.splice(playlistIndex, 1);
+      }
+    });
+  }
+
+  removeCategoryFromAllMediaFiles(category: Category) {
+    this.mediaFiles.forEach(mediaFile => {
+      if (mediaFile.categories.includes(category)) {
+        const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+        const categoryIndex = this.mediaFiles[mediaFileIndex].categories.findIndex(c => c.id === category.id);
+        this.mediaFiles[mediaFileIndex].categories.splice(categoryIndex, 1);
+      }
+    });
   }
 
   addComment(comment: string, mediaFile: MediaFile) {
@@ -69,6 +113,12 @@ export class MediaFileService {
     });
   }
 
+  updateCategories(categories: Category[], mediaFile: MediaFile) {
+    const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+    this.mediaFiles[mediaFileIndex].categories = [];
+    this.addCategories(categories, mediaFile);
+  }
+
   private addPlaylist(playlist: Playlist, mediaFile: MediaFile) {
     const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
     this.mediaFiles[mediaFileIndex].playlists.push(playlist);
@@ -76,6 +126,16 @@ export class MediaFileService {
   }
 
   addPlaylists(playlists: Playlist[], mediaFile: MediaFile) {
+    playlists.forEach(playlist => {
+      if (!this.playlistExist(playlist, mediaFile)) {
+        this.addPlaylist(playlist, mediaFile);
+      }
+    });
+  }
+
+  updatePlaylists(playlists: Playlist[], mediaFile: MediaFile) {
+    const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+    this.mediaFiles[mediaFileIndex].playlists = [];
     playlists.forEach(playlist => {
       if (!this.playlistExist(playlist, mediaFile)) {
         this.addPlaylist(playlist, mediaFile);
@@ -101,5 +161,21 @@ export class MediaFileService {
   remove(mediaFile: MediaFile) {
     const mediaFileIndex = this.mediaFiles.findIndex(mf => mf.id === mediaFile.id);
     this.mediaFiles.splice(mediaFileIndex, 1);
+    this._playlistService.removeMediaFileFromPlaylists(mediaFile);
+  }
+
+  subscribeEvents() {
+    this._eventService.onPlaylistRemove.subscribe((playlist) => {
+      this.removePlaylistFromAllMediaFiles(playlist);
+    });
+    this._eventService.onCateogryRemove.subscribe((category) => {
+      this.removeCategoryFromAllMediaFiles(category);
+    });
+    this._eventService.onPlaylistRename.subscribe((playlist) => {
+      this.renamePlaylistFromMediaFiles(playlist);
+    });
+    this._eventService.onCategoryRename.subscribe((category) => {
+      this.renameCategoryFromMediaFiles(category);
+    });
   }
 }

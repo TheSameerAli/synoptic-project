@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../../models/category';
+import { EventService } from '../event/event.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
   private categories: Category[];
-  constructor() {
+  constructor(private _eventService: EventService) {
     if (!this.categories) {
       this.categories = [];
     }
@@ -31,10 +32,12 @@ export class CategoryService {
   rename(category: Category, newName: string) {
     const categoryFoundIndex = this.categories.findIndex(c => c.id === category.id);
     this.categories[categoryFoundIndex].name = newName;
+    this._eventService.onCategoryRename.emit(category);
   }
 
   delete(category: Category) {
     const categoryFoundIndex = this.categories.findIndex(c => c.id === category.id);
     this.categories.splice(categoryFoundIndex, 1);
+    this._eventService.onCateogryRemove.emit(category);
   }
 }

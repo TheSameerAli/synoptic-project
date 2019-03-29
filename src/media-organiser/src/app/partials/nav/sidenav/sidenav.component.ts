@@ -1,6 +1,8 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  ViewChild,
+  ElementRef
 } from '@angular/core';
 import {
   StateService
@@ -16,7 +18,7 @@ import {
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
-
+  @ViewChild('openConfirmModal') openConfirmModalButton: ElementRef;
   constructor(private _stateService: StateService, private _router: Router) {}
 
   ngOnInit() {
@@ -28,6 +30,14 @@ export class SidenavComponent implements OnInit {
 
   loadState() {
     this._stateService.load();
+  }
+
+  resetStateConfirm() {
+    this.openConfirmModalButton.nativeElement.click();
+  }
+
+  resetState() {
+    this._stateService.reset();
   }
 
 }

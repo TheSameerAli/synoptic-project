@@ -30,7 +30,9 @@ export class FileExplorerComponent implements OnInit {
   public selectedView: FileViewOptions = FileViewOptions.List;
   public selectedFileId: string = undefined;
   public selectedFile: MediaFile = undefined;
+  public fileIdToDelete: string;
   @ViewChild('fileViewModal') fileViewModal: ElementRef;
+  @ViewChild('openConfirmModal') openConfirmModalButton: ElementRef;
   constructor(private _mediaFileService: MediaFileService,
     private _stateService: StateService,
     private _activatedRoute: ActivatedRoute
@@ -67,10 +69,16 @@ export class FileExplorerComponent implements OnInit {
     }
   }
 
+  deleteFileConfirm() {
+    this.fileIdToDelete = this.selectedFileId;
+    this.openConfirmModalButton.nativeElement.click();
+  }
+
   deleteFile() {
-    this._mediaFileService.remove(this.files.find(f => f.id === this.selectedFileId));
+    this._mediaFileService.remove(this.files.find(f => f.id === this.fileIdToDelete));
     this.updateFileList();
     this.selectedFileId = undefined;
+    this.fileIdToDelete = undefined;
   }
 
   filterFiles(filter: string) {

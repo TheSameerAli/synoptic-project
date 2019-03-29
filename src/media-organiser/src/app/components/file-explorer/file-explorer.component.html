@@ -29,7 +29,7 @@
         class="toolbar-btn button-add d-inline"><i class="fas fa-edit"></i></div>
 
         <!-- Delete file button -->
-        <div (click)="deleteFile()" [class.disabled]="selectedFileId === undefined" 
+        <div (click)="deleteFileConfirm()" [class.disabled]="selectedFileId === undefined" 
         class="toolbar-btn button-add d-inline "><i class="fas fa-trash"></i></div>
       </div>
   </div>
@@ -44,8 +44,11 @@
 
 </div>
 
+<button hidden #openConfirmModal data-toggle="modal" data-target="#file-deletion-confirmation"></button>
+
 <!-- Modals -->
 <app-file-upload-modal (update)="updateFileList()"></app-file-upload-modal>
 <app-folder-upload-modal></app-folder-upload-modal>
 <app-view-media-file-modal *ngIf="selectedFile !== undefined" [file]="selectedFile"></app-view-media-file-modal>
 <app-edit-media-file-modal (update)="updateFileList()" *ngIf="selectedFile !== undefined" [file]="selectedFile"></app-edit-media-file-modal>
+<app-confirm-modal (confirmed)="deleteFile()" modalId="file-deletion-confirmation" confirmButtonText="Delete" confirmText="Are you sure you want to delete this file?"></app-confirm-modal>

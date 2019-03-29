@@ -60,6 +60,9 @@ ipcMain.on('show-folder-upload', (event, fileTypes) => {
 
 ipcMain.on('save-state', (event, data) => {
   var savePath = dialog.showSaveDialog({});
+  if (savePath === undefined) {
+    return;
+  }
   fs.writeFile(`${savePath}.statefile`, data, function (err) {
     // file saved or err
   });

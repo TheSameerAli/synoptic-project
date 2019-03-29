@@ -1,4 +1,4 @@
-<div class="modal fade" id="edit-media-file-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal animated zoomIn" id="edit-media-file-details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -56,7 +56,7 @@
                 <td *ngIf="playlists.length > 0">
                     <ng-multiselect-dropdown [placeholder]="'Playlists'" 
                     [data]="playlists" [(ngModel)]="selectedPlaylists" 
-                    [settings]="dropdownSettings">
+                    [settings]="dropdownSettings" (onDeSelect)="onDeselect($event)">
                       </ng-multiselect-dropdown>
                 </td>
                 <td *ngIf="playlists.length === 0">No playlists exist. Create a playlist to assign this file.</td>
