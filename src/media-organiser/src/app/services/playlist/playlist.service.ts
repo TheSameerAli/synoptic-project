@@ -43,12 +43,23 @@ export class PlaylistService {
   moveMediaFile(playlist: Playlist, index: number, toMove: number) {
     const playlistIndex = this.playlists.findIndex(pl => pl.id === playlist.id);
       this.playlists[playlistIndex].mediaFiles =
-      this.array_move(this.playlists[playlistIndex].mediaFiles, index, index + toMove);
+      this.array_move(this.playlists[playlistIndex].mediaFiles, index, index + toMove); // Moves the item up or down
   }
 
   addMediaFile(mediaFile: MediaFile, playlist: Playlist) {
+    if (!this.mediaFileExist(mediaFile, playlist)) { // Only adds the media file if it doesn't exist in that playlist
+      const playlistIndex = this.playlists.findIndex(p => p.id === playlist.id);
+      this.playlists[playlistIndex].mediaFiles.push(new PlaylistMediaFile(mediaFile.id, mediaFile.name));
+    }
+  }
+
+  mediaFileExist(mediaFile: MediaFile, playlist: Playlist) {
     const playlistIndex = this.playlists.findIndex(p => p.id === playlist.id);
-    this.playlists[playlistIndex].mediaFiles.push(new PlaylistMediaFile(mediaFile.id, mediaFile.name));
+    if (this.playlists[playlistIndex].mediaFiles
+      && this.playlists[playlistIndex].mediaFiles.find(mf => mf.id === mediaFile.id)) {
+        return true;
+    }
+    return false;
   }
 
   delete(playlist: Playlist) {
@@ -61,6 +72,22 @@ export class PlaylistService {
     const playlistIndex = this.playlists.findIndex(p => p.id === playlist.id);
     this.playlists[playlistIndex].name = newName;
     this._eventService.onPlaylistRename.emit(this.playlists[playlistIndex]);
+  }
+
+  removeMediaFile(mediaFile: MediaFile, playlist: Playlist) {
+    const playlistIndex = this.playlists.findIndex(p => p.id === playlist.id);
+    const mediaFileIndex = this.playlists[playlistIndex].mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+    this.playlists[playlistIndex].mediaFiles.splice(mediaFileIndex, 1);
+  }
+
+  removeMediaFileFromPlaylists(mediaFile: MediaFile) {
+    this.playlists.forEach(playlist => {
+      if (playlist.mediaFiles && playlist.mediaFiles.find(mf => mf.id === mediaFile.id)) {
+        const playlistIndex = this.playlists.findIndex(p => p.id === playlist.id);
+        const mediaFileIndex = this.playlists[playlistIndex].mediaFiles.findIndex(mf => mf.id === mediaFile.id);
+        this.playlists[playlistIndex].mediaFiles.splice(mediaFileIndex, 1);
+      }
+    });
   }
 
   private array_move(arr, old_index, new_index) {

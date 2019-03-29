@@ -28,6 +28,8 @@ export class EditMediaFileModalComponent implements OnInit, OnChanges {
   public newImageFilePath: string;
   public newFileName: string;
 
+  public deselectedPlaylists = [];
+
   public dropdownSettings = {
     singleSelection: false,
     idField: 'item_id',
@@ -119,7 +121,16 @@ export class EditMediaFileModalComponent implements OnInit, OnChanges {
       const playlists = this.selectedPlaylists.map(pl => {
         return this._playlistService.getById(pl.item_id);
       });
-      this._mediaFileService.addPlaylists(playlists, this.file);
+      this._mediaFileService.updatePlaylists(playlists, this.file);
+    }
+
+    if (this.deselectedPlaylists) {
+      this.deselectedPlaylists.forEach(playlistItem => {
+        if (!this.selectedPlaylists.find(sp => sp.item_id === playlistItem.item_id)) {
+          const playlist = this._playlistService.getById(playlistItem.item_id);
+          this._playlistService.removeMediaFile(this.file, playlist);
+        }
+      });
     }
 
     this.update.emit();
@@ -127,6 +138,10 @@ export class EditMediaFileModalComponent implements OnInit, OnChanges {
 
   openImageDialog() {
     this._ipcService.send('upload-image');
+  }
+
+  onDeselect(event) {
+    this.deselectedPlaylists.push(event);
   }
 
 }
